@@ -14,4 +14,14 @@ router.get("/login", (req, res)=>{
 
 
 
+
+
+
+
+
+router.get("/registro", (req, res)=>{
+    res.render("registro");
+})
+
+
 module.exports = router;
