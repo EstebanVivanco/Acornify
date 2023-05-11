@@ -32,6 +32,10 @@ router.get('/vista_recompensas',(req, res) =>{
     res.render('vista_recompensas')
 })
 
+router.get('/vista_eliminar_recompensa',(req, res) =>{
+    res.render('vista_eliminar_recompensa')
+})
+
 
 
 module.exports = router;
