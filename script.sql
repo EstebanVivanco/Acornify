@@ -40,9 +40,9 @@ CREATE TABLE suscripciones(
     estado VARCHAR(60) NOT NULL,
     FOREIGN KEY(id_recompensa_fk) REFERENCES recompensa(id_recompensa),
     FOREIGN KEY(id_usuario_fk) REFERENCES usuario(id_usuario)
-)
+);
 
 INSERT INTO usuario VALUES ( NULL, 'Alexis Sanchez', 'Alexis@Sanchez.com', 'omcarrito');
 INSERT INTO tienda VALUES  ( NULL,'Cafeterin Bombin', 'cafeterin@bombin.com', 'cafeterinbombin123', 'Fadrex City, Calle Fortaleza #132');
-INSERT INTO recompensa VALUES ( NULL, 1, 'Café de metales a elección', 'Cafecito calientito gratis al conseguir tu recompensa', 12)
+INSERT INTO recompensa VALUES ( NULL, 1, 'Café de metales a elección', 'Cafecito calientito gratis al conseguir tu recompensa', 12);
 INSERT INTO suscripciones VALUES ( NULL, 1,1, 'en curso');
