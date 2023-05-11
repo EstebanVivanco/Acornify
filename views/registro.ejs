@@ -9,6 +9,38 @@
 </head>
 <body>
     
-    <h1>W E L C O M E  REGISTRO DE USUARIO</h1>
+    <div class=" d-flex justify-content-center align-items-center vh-100 mt-2" style="background-color: hsl(0, 0%, 90%); ">
+        <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 27rem">
+            <form action="/saveuser" method="POST" class="needs-validation" novalidate>
+                <h2 class="text-center">Registro de Usuario</h2>
+                <p>Crea tu cuenta. Es gratis, y solo tomará un minuto.</p>
+                <div class="form-group">
+                    <div class="row">
+                        <div>
+                            <b>Nombre</b><br>
+                            <input type='text' class="form-control" name="name" id="name" placeholder="Ingrese su nombre" size='15' maxlength='13' required>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="mt-1">
+                    <b>Email</b>
+                    <input type='email' name="correo" id="correo" class="form-control" placeholder="Ingrese su correo electrónico" size='45' maxlength='30' required><br>
+                </div>
+
+                <div>
+                    <b>Contraseña</b>
+                    <input type='password' name="password" class="form-control" placeholder="Ingrese su contraseña"><br>
+                </div>
+                <button type="submit" class="btn btn-info text-white w-100 fw-semibold shadow-sm">
+                    Registrarme
+                </button>
+                <div class="d-flex gap-1 justify-content-center mt-1">
+                    <div>Ya tienes una cuenta?</div>
+                    <a href="/login" class="text-decoration-none text-info fw-semibold">Iniciar Sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
