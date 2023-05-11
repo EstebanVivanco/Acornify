@@ -16,6 +16,7 @@ router.get("/login", (req, res)=>{
 
 
 
+
 router.get('/vista_catalogo',(req, res) =>{
     res.render('vista_catalogo')
 })
