@@ -8,6 +8,19 @@ router.get('/',  (req, res)=>{
 
 })
 
+router.get("/login", (req, res)=>{
+    res.render("login");
+})
+
+
+
+
+
+
+router.get('/vista_catalogo',(req, res) =>{
+    res.render('vista_catalogo')
+})
+
 
 router.get('/',  (req, res)=>{
 
