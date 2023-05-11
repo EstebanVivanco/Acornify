@@ -9,5 +9,17 @@ router.get('/',  (req, res)=>{
 })
 
 
+router.get('/',  (req, res)=>{
+
+    res.render('index');
+
+})
+
+router.get('/caja',  (req, res)=>{
+
+    res.render('caja');
+
+})
+
 
 module.exports = router;
