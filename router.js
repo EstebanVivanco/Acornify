@@ -28,6 +28,10 @@ router.get('/vista_catalogo',(req, res) =>{
     res.render('vista_catalogo')
 })
 
+router.get('/vista_recompensas',(req, res) =>{
+    res.render('vista_recompensas')
+})
+
 
 
 module.exports = router;
