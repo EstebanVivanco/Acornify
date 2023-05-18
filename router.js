@@ -39,6 +39,10 @@ router.get('/caja',  (req, res)=>{
 
 })
 
+router.get('/vista_crear_recompensa',(req, res) =>{
+    res.render('vista_crear_recompensa');
+})
+
 const crud = require('./controllers/crud');
 
 router.post('/saveUser', crud.saveUser);
