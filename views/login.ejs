@@ -11,7 +11,7 @@
 
     <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: hsl(0, 0%, 90%)">
 
-        <form action="login" method="post">
+        <form action="validacion" method="post">
         <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
             
             <div class="d-flex justify-content-center">
@@ -44,6 +44,37 @@
         </form>
 
     </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert !="undefined" ){ %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle%>',
+                text: '<%= alertMessage%>',
+                icon: '<%= alertIcon%>',
+                showConfirmButton: <%= showConfirmButton%> ,
+                timer: <%= timer %>
+            }).then(() => {
+                    window.location = '/<%= ruta%>'
+                })
+        </script>
+        <% } %>
+        <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (() => {
+                    'use strict'
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    const forms = document.querySelectorAll('.needs-validation')
+                    // Loop over them and prevent submission
+                    Array.from(forms).forEach(form => {
+                        form.addEventListener('submit', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+                })()
+        </script>
 </body>
 </html>

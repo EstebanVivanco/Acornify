@@ -53,5 +53,6 @@ router.get('/vista_crear_recompensa',(req, res) =>{
 
 const crud = require('./controllers/crud');
 
-router.post('/saveUser', crud.saveUser);
+router.post('/validacion', crud.validacion);
+router.post('/saveuser', crud.saveuser);
 module.exports = router;
