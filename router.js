@@ -39,5 +39,7 @@ router.get('/caja',  (req, res)=>{
 
 })
 
+const crud = require('./controllers/crud');
 
+router.post('/saveUser', crud.saveUser);
 module.exports = router;
