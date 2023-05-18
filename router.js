@@ -15,7 +15,15 @@ router.get("/registro", (req, res)=>{
 
 
 router.get('/vista_catalogo',(req, res) =>{
-    res.render('vista_catalogo')
+    conexion.query('SELECT * FROM recompensa')
+
+    if(console){
+        throw error;
+
+    }else{
+        res.render('vista_catalogo', {results: results})
+    }
+    
 })
 
 router.get('/vista_recompensas',(req, res) =>{
