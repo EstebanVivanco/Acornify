@@ -15,19 +15,27 @@ router.get("/registro", (req, res)=>{
 
 
 router.get('/vista_catalogo',(req, res) =>{
-    conexion.query('SELECT * FROM recompensa')
 
-    if(console){
-        throw error;
-
-    }else{
-        res.render('vista_catalogo', {results: results})
-    }
+    conexion.query('SELECT * FROM tienda', (error, results) => {
+        if(error){
+            throw error;
     
+        }else{
+            res.render('vista_catalogo', {results: results})
+        }
+    }) 
 })
 
 router.get('/vista_recompensas',(req, res) =>{
-    res.render('vista_recompensas')
+
+    conexion.query('SELECT * FROM recompensa', (error, results) => {
+        if(error){
+            throw error;
+    
+        }else{
+            res.render('vista_recompensas', {results: results})
+        }
+    }) 
 })
 
 router.get('/vista_eliminar_recompensa',(req, res) =>{
