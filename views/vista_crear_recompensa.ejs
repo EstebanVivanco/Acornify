@@ -17,11 +17,6 @@
                     <h2 class="text-center">Crear recompensa</h2><br>
                     <div class="form-group">
                         <div class="row">
-                            <select id="recompensa" name="recompensa" class="form-select mb-3" aria-label="Default select example" required>
-                                <option selected>Nombre de recompensa</option>
-                                <option value="1">Café</option>
-                                <option value="2">Galletas</option>
-                            </select>
                             <div>
                                 <b>Nombre</b><br>
                                 <input type='text' class="form-control" name="name" id="name" placeholder="Ingrese su nombre" size='15' maxlength='13' required>
@@ -30,12 +25,12 @@
                     </div>
                     <br>
                     <div class="mt-1">
-                        <b>Cantidad</b>
+                        <b>Valor de Recompensa (Puntos)</b>
                         <input type='number' name="cantidad" id="cantidad" class="form-control" placeholder="Cantidad de X" size='45' maxlength='5' required><br>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <img src="bellota.png" alt="login-icon" style="height: 3rem" />
-                    </div>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" accept="image/*" aria-label="Upload">
+                      </div>
                     <br>
                     <button type="submit" class="btn btn-info text-white w-100 fw-semibold shadow-sm">
                         Crear
