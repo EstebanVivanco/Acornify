@@ -2,6 +2,51 @@ const router = require('../router');
 const { query } = require('../database/bd');
 const conexion = require('../database/bd');
 
+exports.caja =(req, res)=>{
+
+    const rut = req.body.rut;
+
+    //Obtener el ID del usuario mediante el rut
+    conexion.query('SELECT id_usuario, id_tarjeta_fk FROM usuario WHERE rut_usuario =  ?', [rut], (error, results)=>{
+
+        const id_usuario = results[0].id_usuario;
+        const id_tarjeta_fk = results[0].id_tarjeta_fk;
+
+        conexion.query('SELECT puntos FROM tarjeta WHERE id_tarjeta = ?', [id_tarjeta_fk], (error, results)=>{
+
+            const puntos = results[0].puntos; //PUNTOS DEL RUT INGRESADO
+            const NuevosPuntos = puntos + 1;
+
+            conexion.query('Update tarjeta SET ? WHERE id_tarjeta = ?', [{puntos: NuevosPuntos}, id_tarjeta_fk], (error, results)=>{
+
+                conexion.query('INSERT INTO registro_compra SET ?', {id_usuario_fk : id_usuario, id_tienda_fk: 1, fecha_compra: '23-05-05'}, (error, results)=>{
+                    
+                    if(error){
+                        throw error;
+                    }else{
+                        res.render('caja',{
+                            alert:true,
+                            alertTitle: 'Venta Finalizada',
+                            alertMessage: 'Se han actualizado los puntos del Usuario',
+                            alertIcon:'success',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            ruta: 'caja'
+                        })
+                    }
+
+                });
+                
+            });
+
+
+        });
+
+    });
+
+}
+
+
 exports.saveuser =(req, res)=>{
     const rut = req.body.rut;
     const nombre = req.body.name;

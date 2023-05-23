@@ -63,4 +63,5 @@ const crud = require('./controllers/crud');
 
 router.post('/validacion', crud.validacion);
 router.post('/saveuser', crud.saveuser);
+router.post('/caja', crud.caja);
 module.exports = router;
