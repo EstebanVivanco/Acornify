@@ -40,22 +40,23 @@
         </div>
     </nav>
 
-    <div class="container mt-4 bg-light">
+    <div class="container mt-5 bg-light">
         <div class="row">
-          <div class="col-md-5">
-            <img width="100%" src="https://images.pexels.com/photos/4916189/pexels-photo-4916189.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Imagen" class="img-fluid">
+          <div class="col-md-6">
+            <img style="margin-left: -12px; width: auto;"  src="https://images.pexels.com/photos/4916189/pexels-photo-4916189.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Imagen" class="img-fluid">
           </div>
-          <div class="col-md-7">
-
-              <H1 class="mt-5">Simulación de Caja</H1>
-            <div style="padding: 5%; padding-right: 15%;">
-                <form method="POST" action="/caja">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">RUT DEL COMPRADOR</label>
-                        <input class="form-control bg-light" type="text" id="rut" name="rut">
-                    </div>
-                    <button type="submit" class="btn  btn-danger ">Terminar Compra</button>
-                </form>
+          <div class="col-md-6">
+              <H1 style="margin-top: 40%;">Simulación de Caja</H1>
+                <div style="margin-right: 40%;">
+                    <form method="POST" action="/caja">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label mt-4">RUT DEL COMPRADOR</label>
+                            <input class="form-control" type="text" id="rut" name="rut">
+                        </div>
+                        <center>
+                            <button type="submit" class="btn btn-danger mt-4" id="submit-btn-vali" style="border-radius: 20px; width: 70%;">Terminar Compra</button>
+                        </center>
+                    </form>
             </div>
             
           </div>
@@ -109,5 +110,8 @@
                     })
                 })()
     </script>
+
+<script src="rutvalidator.js"></script>
+
 </body>
 </html>
