@@ -35,6 +35,7 @@ CREATE TABLE recompensa(
     nombre_producto VARCHAR(300) NOT NULL,
     descripcion_producto VARCHAR(300) NOT NULL,
     meta_canje INT NOT NULL,
+    estado boolean not null,
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda)
 
 );
