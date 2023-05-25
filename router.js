@@ -8,6 +8,12 @@ router.get('/',  (req, res)=>{
 
 })
 
+router.get('/loginTienda',  (req, res)=>{
+
+    res.render('loginTienda');
+
+})
+
 
 router.get("/registro", (req, res)=>{
     res.render("registro");
@@ -64,4 +70,5 @@ const crud = require('./controllers/crud');
 router.post('/validacion', crud.validacion);
 router.post('/saveuser', crud.saveuser);
 router.post('/caja', crud.caja);
+router.post('/loginTienda',crud.loginTienda);
 module.exports = router;
