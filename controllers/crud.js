@@ -108,3 +108,41 @@ exports.validacion = (req, res)=>{
     }
 
 }
+
+exports.loginTienda = (req, res)=>{
+    const correo = req.body.email;
+    const pass = req.body.password;
+
+    if(correo && pass){
+        conexion.query('SELECT * FROM tienda WHERE email_tienda = ? AND password_tienda = ?', [correo, pass], (error, results)=>{
+            if(error){
+                throw error;
+            }else{
+                if(results.length > 0){
+                    //ENTRA
+                    res.render('loginTienda',{
+                        alert:true,
+                        alertTitle: 'Conexion exitosa',
+                        alertMessage: 'Bienvenido! ',
+                        alertIcon:'succes',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta: 'vista_crear_recompensa'
+                    })
+                }else{
+                    //NO ENTRA
+                    res.render('loginTienda',{
+                        alert:true,
+                        alertTitle: 'Error',
+                        alertMessage: 'Nombre o contraseña incorrectos!',
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: 'loginTienda'
+                    })
+                }
+            }
+        })
+    }
+
+}
