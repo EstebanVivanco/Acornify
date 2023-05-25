@@ -1,6 +1,8 @@
 const express = require('express');
 const { json } = require('express');
 const path = require('path');
+const session = require('express-session');
+
 
 const app = express();
 
@@ -16,6 +18,13 @@ app.use(express.static(path.join(__dirname,'public')));
 //Permitir usar componentes
 app.use(express.static(path.join(__dirname,'public/components')));
 app.use(express.static(path.join(__dirname,'helpers')));
+
+//Sessions
+app.use(session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+}));
 
 app.use('/', require('./router'));
 

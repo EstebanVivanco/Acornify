@@ -55,20 +55,52 @@ router.get('/',  (req, res)=>{
 
 })
 
+router.get('/registros_recompensas/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('SELECT * FROM recompensa WHERE id_tienda_fk = ?',[id], (error, results) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            res.render('registros_recompensas', {user : req.session.user, results: results});
+        }
+    }) 
+    
+
+})
+
 router.get('/caja',  (req, res)=>{
 
-    res.render('caja');
+    res.render('caja', {user : req.session.user});
 
 })
 
 router.get('/vista_crear_recompensa',(req, res) =>{
-    res.render('vista_crear_recompensa');
+    res.render('vista_crear_recompensa', {user : req.session.user});
+})
+
+router.get('/logout',  (req, res)=>{
+
+    req.session.destroy((err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect('/'); // Redirige a la página de inicio de sesión u otra página adecuada
+        }
+    });
+
+
 })
 
 const crud = require('./controllers/crud');
 
 router.post('/validacion', crud.validacion);
 router.post('/saveuser', crud.saveuser);
+router.post('/saverecompensa', crud.saverecompensa);
 router.post('/caja', crud.caja);
 router.post('/loginTienda',crud.loginTienda);
 module.exports = router;

@@ -31,7 +31,8 @@ exports.caja =(req, res)=>{
                             alertIcon:'success',
                             showConfirmButton: false,
                             timer: 1500,
-                            ruta: 'caja'
+                            ruta: 'caja',
+                            user: req.session.user
                         })
                     }
 
@@ -69,6 +70,35 @@ exports.saveuser =(req, res)=>{
             })
         }
     })
+}
+
+exports.saverecompensa =(req, res)=>{
+
+    const id = req.body.id;
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const cantidad = req.body.cantidad;
+
+
+    conexion.query('INSERT INTO recompensa SET ?', {id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, meta_canje:cantidad}, (error, results)=>{
+
+        if(error){
+            throw error;
+        }else{
+            res.render('vista_crear_recompensa',{
+                alert:true,
+                alertTitle: 'RECOMPENSA NUEVA',
+                alertMessage: 'Se ha registrado una nueva recompensa !',
+                alertIcon:'success',
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: 'vista_crear_recompensa',
+                user: req.session.user
+
+            })
+        }
+    })
+
 }
 
 exports.validacion = (req, res)=>{
@@ -121,14 +151,19 @@ exports.loginTienda = (req, res)=>{
                 if(results.length > 0){
                     //ENTRA
                     res.render('loginTienda',{
+
                         alert:true,
                         alertTitle: 'Conexion exitosa',
                         alertMessage: 'Bienvenido! ',
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_crear_recompensa'
+                        ruta: 'caja',
+                        user : req.session.user = results[0]
+                        
                     })
+                    
+
                 }else{
                     //NO ENTRA
                     res.render('loginTienda',{
