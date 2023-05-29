@@ -14,9 +14,9 @@
     <c-navbar></c-navbar>
 
     <header class="colorfondo py-5">
-        <div class="container px-4 px-lg-5 my-5"  >
+        <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Tiendas</h1>
+                <h1 class="display-4 fw-bolder">Historial</h1>
             </div>
         </div>
     </header>
@@ -26,6 +26,8 @@
     <i class="bi bi-search"></i>
     <i class="bi bi-search"></i>
     <i class="bi bi-search"></i>
+
+    <!--
     <div class="card mb-4">
         <div class="card-body">
             <div class="input-group plf10">
@@ -34,38 +36,36 @@
             </div>
         </div>
     </div>
+    -->
 
-    <section class="py-5">
-        <% results.forEach((tienda) => { %>
-        <a style="text-decoration: none; color: black;" href="">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col-md-6 col-12">
-                        <div class="card h-100 ">
-                            <!-- Imagen de tienda -->
-                            <div class="ratio ratio-4x3">
-                                <img class="card-img-top" src="https://picsum.photos/200/400" alt="...">
-                            </div>
-                            <!-- Detalles de tienda-->
-                            <div class="card-body p-4">
-                                <div class="text-start">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder fs-3"><%= tienda.nombre_tienda %></h5>
-                                    <p class="card-text fs-5"> <%= tienda.ubicacion_tienda %> </p>
-                                    <!-- categoria? (si no se pone nada, borrar) -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+        <% results.forEach((results) => { %>
+          <div class="col-sm-6">
+            <div class="card mt-3">
+              <div class="row g-0 d-flex">
+                <div class="col-8">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= results.nombre_tienda %></h5>
+                    <p class="card-text"><%= results.ubicacion %></p>
+                    <p class="card-text"><%= results.fecharda %></p>
+                    <hr>
+                    <p class="card-text fs-3"><small class="text-muted"><%= results.nombre_recom %> | <%= results.puntos %> </small></p>
+                  </div>
                 </div>
+                <div class="col-4 text-end">
+                    <img class="img-fluid h-100" src="https://picsum.photos/seed/<%= results.id_canjes %>/300/200" alt="..." width="200">
+                  </div>
+              </div>
             </div>
-        </a>
-        <% }) %>
+          </div>
+          <% }) %>
+        </div>
+    </div>
+    <br>
 
-                
-
-                
-    </section>
+        
 
     <footer class="py-5 bg-dark">
         <div class="container"><p class="m-0 text-center text-white">Copyright © Your Website 2023</p></div>

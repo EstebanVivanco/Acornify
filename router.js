@@ -44,6 +44,19 @@ router.get('/vista_recompensas',(req, res) =>{
     }) 
 })
 
+router.get('/vista_historial',(req, res) =>{
+
+    conexion.query('SELECT canje.id_canjes, DATE_FORMAT(canje.fecha_canje, "%d/%m/%Y") AS fecharda, recompensa.nombre_producto AS "nombre_recom", recompensa.meta_canje AS "puntos", tienda.nombre_tienda AS "nombre_tienda", tienda.ubicacion_tienda AS "ubicacion" FROM canje INNER JOIN recompensa ON canje.id_recompensa_fk = recompensa.id_recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda', (error, results) => {
+        if(error){
+            throw error;
+    
+        }else{
+            res.render('vista_historial', {results: results})
+        }
+    }) 
+})
+
+
 router.get('/vista_eliminar_recompensa',(req, res) =>{
     res.render('vista_eliminar_recompensa')
 })

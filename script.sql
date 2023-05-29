@@ -65,6 +65,6 @@ CREATE TABLE canje (
 INSERT INTO tarjeta VALUES (NULL, 7, NULL);
 INSERT INTO usuario VALUES ( NULL,'11111111-1', 'Alexis Sanchez', 'Alexis@Sanchez.com', '123', 1);
 INSERT INTO tienda VALUES  ( NULL,'76129263-3','Cafeterin Bombin', 'cafeterin@bombin.com', '123', 'Alameda #132');
-INSERT INTO recompensa VALUES ( NULL, 1, 'Cafézoide', 'Cafecito calientito gratis al conseguir tu recompensa', 10);
+INSERT INTO recompensa VALUES ( NULL, 1, 'Cafézoide', 'Cafecito calientito gratis al conseguir tu recompensa', 10, 1);
 
 
