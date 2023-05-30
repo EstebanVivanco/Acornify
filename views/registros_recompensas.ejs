@@ -117,7 +117,7 @@
                                 // Acción que se ejecuta al confirmar la eliminación
                                 console.log('Eliminación confirmada');
                                 // Agrega aquí la lógica para eliminar el elemento o realizar cualquier acción necesaria
-                                //Puedes usar el window.location = '/deshabilitarRegistro/' + id; para hacer la accion (El id lo pasas por el function)
+                                
                             }
                         });
 
@@ -127,7 +127,7 @@
                     } else if (result.isDenied) {
                         // Acción que se ejecuta al hacer clic en el botón de "Editar"
                         //Puedes usar el window.location = '/editarRegistro/' + id; para hacer la accion (El id lo pasas por el function)
-
+                        window.location = '/editar_recompensa/'+id
 
                     } else if (result.isDismissed) {
                         // Acción que se ejecuta al hacer clic en el botón de "Cancelar" o fuera de la alerta
@@ -143,4 +143,4 @@
     </html>
     <%}else{%>
         <h1>DENEGADOIDE</h1>
-        <%}%>
+    <%}%>
