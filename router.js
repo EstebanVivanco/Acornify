@@ -35,7 +35,7 @@ router.get('/vista_catalogo',(req, res) =>{
 router.get('/vista_recompensas/:id',(req, res) =>{
 
     const id = req.params.id;
-    conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = 1', (error, results) => {
+    conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results) => {
         if(error){
             throw error;
     
