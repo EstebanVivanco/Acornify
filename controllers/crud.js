@@ -78,9 +78,9 @@ exports.saverecompensa =(req, res)=>{
     const nombre = req.body.nombre;
     const descripcion = req.body.descripcion;
     const cantidad = req.body.cantidad;
+    const image = req.file.filename;
 
-
-    conexion.query('INSERT INTO recompensa SET ?', {id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, meta_canje:cantidad, estado: 0}, (error, results)=>{
+    conexion.query('INSERT INTO recompensa SET ?', {id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, imagen:image, meta_canje:cantidad, estado: 0}, (error, results)=>{
 
         if(error){
             throw error;
