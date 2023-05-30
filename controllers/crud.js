@@ -119,7 +119,7 @@ exports.validacion = (req, res)=>{
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_recompensas'
+                        ruta: 'vista_catalogo'
                     })
                 }else{
                     //NO ENTRA
