@@ -236,27 +236,21 @@ exports.canjeoDePuntos = (req, res)=>{
     const id_tarjeta_fk = req.body.id_tarjeta_fk;
     const puntos_f = req.body.puntos_f;
 
-        conexion.query('UPDATE tarjeta SET puntos = ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
+        conexion.query('UPDATE tarjeta SET ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
 
-            console.log(id);
-            console.log(id_tarjeta_fk);
-            console.log(puntos_f);
-            console.log(results);
             if(error){
                 throw error;
             }else{
     
                 conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results2) => {
-                    console.log("-------------------------------------");
-                    console.log(results2);
-                    res.render('vista_catalogo',{
+                    res.render('vista_recompensas',{
                         alert:true,
                         alertTitle: 'RECOMPENSA RECLAMADA',
                         alertMessage: 'Se han restado los puntos a su tarjeta !',
                         alertIcon:'success',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_recompensas',
+                        ruta: 'vista_historial',
                         results:results,
                         results:results2,
                         user: req.session.user
