@@ -250,7 +250,7 @@ exports.canjeoDePuntos = (req, res)=>{
                         alertIcon:'success',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_historial',
+                        ruta: 'vista_catalogo',
                         results:results,
                         results:results2,
                         user: req.session.user
