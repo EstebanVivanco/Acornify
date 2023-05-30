@@ -101,6 +101,36 @@ exports.saverecompensa =(req, res)=>{
 
 }
 
+exports.updaterecompensa =(req, res)=>{
+
+    const id = req.body.id;
+    const idr = req.body.idr;
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const estado = req.body.estado;
+    const meta = req.body.meta;
+
+    conexion.query('Update recompensa SET ? WHERE id_recompensa = ?', [{id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, meta_canje:meta, estado: estado}, idr], (error, results)=>{
+
+        if(error){
+            throw error;
+        }else{
+            res.render('vista_crear_recompensa',{
+                alert:true,
+                alertTitle: 'RECOMPENSA ACTUALIZADA',
+                alertMessage: 'Se ha actualizado la recompensa !',
+                alertIcon:'success',
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: 'vista_editar_recompensa',
+                user: req.session.user
+
+            })
+        }
+    })
+
+}
+
 exports.validacion = (req, res)=>{
     const correo = req.body.email;
     const pass = req.body.password;
@@ -119,7 +149,8 @@ exports.validacion = (req, res)=>{
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_catalogo'
+                        ruta: 'vista_catalogo',
+                        user: req.session.user
                     })
                 }else{
                     //NO ENTRA

@@ -1,0 +1,73 @@
+<% if(user) { %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Producto</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h2>Formulario de Producto</h2>
+    <form action="/updaterecompensa" method="POST" enctype="multipart/form-data">
+      <% if(results){ %>
+      <div class="form-group">
+        <input type="text" id="id" name="id" value="<%= user.id_tienda  %>" hidden>
+        <input type="text" id="idr" name="idr" value="<%= results[0].id_recompensa%>" hidden>
+        <label for="nombreProducto">Nombre del Producto:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del producto" value="<%= results[0].nombre_producto %>" required>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <input class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Ingrese una descripción del producto" required value="<%= results[0].descripcion_producto %>" ></input>
+      </div>
+
+      <div class="form-group">
+        <label for="imagen">Imagen:</label><br>
+        <img src="/uploads/<%= results[0].imagen %>" alt="" style="width: 100px; height: 100px;" >
+        <input type="file" class="form-control-file mt-2 " id="image" name="image" accept="image/*">
+      </div>
+
+
+  
+      <div class="form-group">
+        <label for="meta">Meta:</label>
+        <input type="number" class="form-control" id="meta" name="meta" placeholder="Ingrese la meta del producto" required value="<%= results[0].meta_canje %>">
+      </div>
+      <div class="form-group">
+        <label for="estado">Estado:</label>
+        <select class="form-control" id="estado" name="estado" required>
+          <option value="">Seleccione el estado</option>
+          <option value="0" <% if (results[0].estado === 0) { %> selected <% } %> >Vigente</option>
+          <option value="1" <% if (results[0].estado === 1) { %> selected <% } %>>Inactivo</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+      <%}%>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+  <script>
+
+    const imageInput = document.getElementById('image');
+
+    imageInput.addEventListener('change', function(event) {
+
+      const file = event.target.files[0];
+      imageInput.name = "image";
+
+    });
+    
+  </script>
+
+</body>
+</html>
+<%}else{%>
+  <h1>DENEGADOIDE</h1>
+<%}%>
