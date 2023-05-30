@@ -31,7 +31,9 @@
                                 <p class="card-text mt-3">El cliente <%= results.nombreusuario%> reclamo la recompensa <%= results.nombre_recom %>.<br> Da click en aceptar para finalizar la entrega. </p>
                                 <p class="card-text"><small class="text-body-secondary"><%= results.estadocanje ===0 ? 'Pendiente' : 'Completada' %></small></p>                 
                                 <p class="card-text"><small class="text-body-secondary">Canjeada el <%= results.fecharda %> </small></p>
-                                <button type="submit"  class="btn btn-success w-100">Finalizar entrega</button>
+                                <% if(results.estadocanje ===0){%>
+                                    <button type="submit"  class="btn btn-success w-100">Finalizar entrega</button>
+                                <%}%>
                             </div>
                         </form>
                     </div>

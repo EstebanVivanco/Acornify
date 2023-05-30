@@ -61,7 +61,7 @@
                 <div class="col mb-5">
                     <form action="/canjeoDePuntos" method="POST">
                         <input type="text" value="<%= recompensas.id_tienda %>" id="id" name="id" hidden> <!-- Obtener id de la tienda-->
-                        <input type="text" value="<%= recompensas.id_recompensa %>" id="idrecompensa" name="idrecompensa" > <!-- Obtener id de la recompensa-->
+                        <input type="text" value="<%= recompensas.id_recompensa %>" id="idrecompensa" name="idrecompensa" hidden > <!-- Obtener id de la recompensa-->
                         <% if(resultsT){ %>
                         <input type="text" value="<%= resultsT[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" hidden> <!-- Obtener id de la tarjeta que se modificara-->
                         <div class="card h-100">

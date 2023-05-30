@@ -10,13 +10,13 @@ router.get('/',  (req, res)=>{
 
 router.get('/loginTienda',  (req, res)=>{
 
-    res.render('loginTienda');
+    res.render('loginTienda',{user : req.session.user});
 
 })
 
 
 router.get("/registro", (req, res)=>{
-    res.render("registro");
+    res.render("registro", {user : req.session.user});
 })
 
 
@@ -42,11 +42,12 @@ router.get('/vista_recompensas/:id',(req, res) =>{
     
         }else{
 
-            console.log('req.session.user :>> ', req.session.user.id_tarjeta_fk );
+            console.log('req.session.userASDASDASDASD :>> ', req.session.user.id_tarjeta_fk);
             
-            conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?',[req.session.user.id_tarjeta_fk], (error, resultsT) => {
+            conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?', [req.session.user.id_tarjeta_fk], (error, resultsT) => {
 
-                res.render('vista_recompensas', {results: results, user : req.session.user, resultsT:resultsT})
+                res.render('vista_recompensas', {results: results, user : req.session.user, resultsT:resultsT} )
+                
             })
         }
     }) 
@@ -76,7 +77,7 @@ router.get('/vista_aceptar_recompensas/:id(\\d+)',(req, res) =>{
 
     const id = req.params.id;
 
-    conexion.query('SELECT canje.id_canjes, DATE_FORMAT(canje.fecha_canje, "%d/%m/%Y") AS fecharda, usuario.nombre_usuario AS "nombreusuario",usuario.rut_usuario AS "rutusuario", canje.estado AS "estadocanje" ,recompensa.nombre_producto AS "nombre_recom", recompensa.meta_canje AS "puntos",recompensa.imagen AS "imagen", tienda.nombre_tienda AS "nombre_tienda", tienda.ubicacion_tienda AS "ubicacion" FROM canje INNER JOIN recompensa ON canje.id_recompensa_fk = recompensa.id_recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda INNER JOIN usuario ON canje.id_usuario_fk = usuario.id_usuario WHERE tienda.id_tienda = ?',[id], (error, results) => {
+    conexion.query('SELECT canje.id_canjes, DATE_FORMAT(canje.fecha_canje, "%d/%m/%Y") AS fecharda, usuario.nombre_usuario AS "nombreusuario",usuario.rut_usuario AS "rutusuario", canje.estado AS "estadocanje" ,recompensa.nombre_producto AS "nombre_recom", recompensa.meta_canje AS "puntos",recompensa.imagen AS "imagen", tienda.nombre_tienda AS "nombre_tienda", tienda.ubicacion_tienda AS "ubicacion" FROM canje INNER JOIN recompensa ON canje.id_recompensa_fk = recompensa.id_recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda INNER JOIN usuario ON canje.id_usuario_fk = usuario.id_usuario WHERE tienda.id_tienda = ? order by canje.estado ASC',[id], (error, results) => {
        
         if(error){
             throw error;
@@ -89,7 +90,7 @@ router.get('/vista_aceptar_recompensas/:id(\\d+)',(req, res) =>{
 })
 
 router.get('/vista_eliminar_recompensa',(req, res) =>{
-    res.render('vista_eliminar_recompensa')
+    res.render('vista_eliminar_recompensa', {user : req.session.user})
 })
 
 router.get('/intermediaria_canjeo',(req, res) =>{
@@ -102,7 +103,7 @@ router.get('/vista_intermediaria_aceptar_canje',  (req, res)=>{
 
 router.get('/',  (req, res)=>{
 
-    res.render('index');
+    res.render('index', {user : req.session.user});
 
 })
 
