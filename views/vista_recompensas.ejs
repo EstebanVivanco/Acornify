@@ -46,35 +46,54 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Puntos acumulados</h1>
-                <p class="lead fw-normal  mb-0">Tienes 230 puntos</p>
+                <p class="lead fw-normal  mb-0">Tienes <%= user.puntos %> puntos</p>
             </div>
         </div>
     </header>
 
+    
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <% results.forEach((recompensas) => { %>
                 <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Imagen de tienda -->
-                        <img class="card-img-top" src="https://economiasustentable.com/wp-content/uploads/2020/01/starbucks-1-825x510.jpg" alt="...">
-                        <!-- Detalles de tienda-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder"><%= recompensas.nombre_producto%></h5>
-                                <!-- Product price-->
+                    <form action="/canjeoDePuntos" method="POST">
+                        <input type="text" value="<%= recompensas.id_tienda %>" id="id" name="id"> <!-- Obtener id de la tienda-->
+                        <input type="text" value="<%= user.id_tarjeta_fk %>" id="id_tarjeta_fk" name="id_tarjeta_fk"> <!-- Obtener id de la tarjeta que se modificara-->
+                        <div class="card h-100">
+                            <!-- Imagen de tienda -->
+                            <img class="card-img-top" src="https://economiasustentable.com/wp-content/uploads/2020/01/starbucks-1-825x510.jpg" alt="...">
+                            <!-- Detalles de tienda-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><%= recompensas.nombre_producto%></h5>
+                                    <!-- Product price--> 
 
-                                <!-- puntos meta menos los puntos en la cuenta (no puede ser menor a 0)x-->
-                                <span>Faltan 370 puntos</span>
+                                    <!-- puntos meta menos los puntos en la cuenta (no puede ser menor a 0)x-->
+                                    <%  let p_faltantes = recompensas.meta_canje - user.puntos;
+                                        if (p_faltantes <= 0){
+                                            p_faltantes = 0;
+                                        }
+
+                                        let p_finales = user.puntos - recompensas.meta_canje;
+                                    %>
+                                    <span>Faltan <%= p_faltantes %>  puntos</span>
+                                    <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f">
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <button type="submit" class="btn btn-primary form-control form-control-sm" id="submit-btn" tabindex="5">Guardar</button>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <% if(user.puntos < recompensas.meta_canje){ %>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto disabled" href="#"><%= recompensas.meta_canje %> puntos</a></div>
+                                    <% }else { %>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= recompensas.meta_canje %> puntos</a></div>
+                                <% } %>
+                                    
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto disabled" href="#"><%= recompensas.meta_canje %> puntos</a></div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <% }) %>
             </div>

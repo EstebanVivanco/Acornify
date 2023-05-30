@@ -137,4 +137,5 @@ router.post('/saverecompensa', crud.saverecompensa);
 router.post('/updaterecompensa', crud.updaterecompensa);
 router.post('/caja', crud.caja);
 router.post('/loginTienda',crud.loginTienda);
+router.post('/canjeoDePuntos', crud.canjeoDePuntos);
 module.exports = router;

@@ -136,7 +136,7 @@ exports.validacion = (req, res)=>{
     const pass = req.body.password;
 
     if(correo && pass){
-        conexion.query('SELECT * FROM usuario WHERE email_usuario = ? AND password_usuario = ?', [correo, pass], (error, results)=>{
+        conexion.query('SELECT * FROM usuario INNER JOIN tarjeta ON id_tarjeta = id_tarjeta WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
             if(error){
                 throw error;
             }else{
@@ -150,7 +150,7 @@ exports.validacion = (req, res)=>{
                         showConfirmButton: false,
                         timer: 1500,
                         ruta: 'vista_catalogo',
-                        user: req.session.user
+                        user: req.session.user = results[0]
                     })
                 }else{
                     //NO ENTRA
@@ -210,5 +210,42 @@ exports.loginTienda = (req, res)=>{
             }
         })
     }
+
+}
+
+exports.canjeoDePuntos = (req, res)=>{
+    const id = req.body.id;
+    const id_tarjeta_fk = req.body.id_tarjeta_fk;
+    const puntos_f = req.body.puntos_f;
+
+        conexion.query('UPDATE tarjeta SET puntos = ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
+
+            console.log(id);
+            console.log(id_tarjeta_fk);
+            console.log(puntos_f);
+            console.log(results);
+            if(error){
+                throw error;
+            }else{
+    
+                conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results2) => {
+                    console.log("-------------------------------------");
+                    console.log(results2);
+                    res.render('vista_catalogo',{
+                        alert:true,
+                        alertTitle: 'RECOMPENSA RECLAMADA',
+                        alertMessage: 'Se han restado los puntos a su tarjeta !',
+                        alertIcon:'success',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta: 'vista_recompensas',
+                        results:results,
+                        results:results2,
+                        user: req.session.user
+                        
+                    })
+                })
+            }
+        })
 
 }
