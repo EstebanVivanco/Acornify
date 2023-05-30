@@ -106,6 +106,27 @@ router.get('/editar_recompensa/:id',  (req, res)=>{
 
 })
 
+router.get('/eliminar_recompensa/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE recompensa SET estado = 1 WHERE id_recompensa = ?',[id], (error, results) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+                conexion.query('SELECT * FROM recompensa WHERE id_tienda_fk = ?',[req.session.user.id_tienda], (error, results) => {
+                
+                    res.render('registros_recompensas' , {user: req.session.user, results: results});
+                }) 
+        }
+    }) 
+    
+
+})
+
 router.get('/caja',  (req, res)=>{
 
     res.render('caja', {user : req.session.user});

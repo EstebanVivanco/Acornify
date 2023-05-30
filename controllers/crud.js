@@ -109,22 +109,40 @@ exports.updaterecompensa =(req, res)=>{
     const descripcion = req.body.descripcion;
     const estado = req.body.estado;
     const meta = req.body.meta;
+    const image = req.file?.filename;
+    const imgBD = req.body.imgexistente;
+    let parametroImagen = '';
 
-    conexion.query('Update recompensa SET ? WHERE id_recompensa = ?', [{id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, meta_canje:meta, estado: estado}, idr], (error, results)=>{
+    if (image !== undefined) {
+        parametroImagen = image;
+        console.log('parametroImagen :>> ', parametroImagen);
+    }else{
+        parametroImagen = imgBD;
+        console.log('parametroImagen :>> ', parametroImagen);
+
+    }
+
+
+
+    conexion.query('Update recompensa SET ? WHERE id_recompensa = ?', [{id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, imagen: parametroImagen, meta_canje:meta, estado: estado}, idr], (error, result1s)=>{
 
         if(error){
             throw error;
         }else{
-            res.render('vista_crear_recompensa',{
-                alert:true,
-                alertTitle: 'RECOMPENSA ACTUALIZADA',
-                alertMessage: 'Se ha actualizado la recompensa !',
-                alertIcon:'success',
-                showConfirmButton: false,
-                timer: 1500,
-                ruta: 'vista_editar_recompensa',
-                user: req.session.user
+            conexion.query('SELECT * FROM recompensa WHERE id_tienda_fk = ?',[id], (error, results) => {
 
+                res.render('vista_editar_recompensa' ,{
+                    alert:true,
+                    alertTitle: 'RECOMPENSA ACTUALIZADA',
+                    alertMessage: 'Se ha actualizado la recompensa !',
+                    alertIcon:'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: 'registros_recompensas/'+id,
+                    user: req.session.user,
+                    results:results
+
+                })
             })
         }
     })

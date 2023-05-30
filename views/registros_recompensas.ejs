@@ -96,17 +96,18 @@
                     showCancelButton: true,
                     cancelButtonText: 'Cancelar',
                     cancelButtonColor: '#d33',
+                    denyButtonText: 'Editar',
+                    denyButtonColor: '#A122CA',
                     confirmButtonText: 'Eliminar',
                     confirmButtonColor: '#3085d6',
-                    showDenyButton: true,
-                    denyButtonText: 'Editar',
-                    denyButtonColor: '#A122CA'
+                    showDenyButton: true
+        
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Acción que se ejecuta al hacer clic en el botón de "Eliminar"
                         Swal.fire({
                             title: 'Confirmar eliminación',
-                            text: '¿Estás seguro de que deseas eliminar el registro '+ nombre+'?',
+                            text: '¿Estás seguro de que deseas deshabilitar esta recompensa?'+ nombre+'?',
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Sí, eliminar',
@@ -116,8 +117,7 @@
                             if (confirmation.isConfirmed) {
                                 // Acción que se ejecuta al confirmar la eliminación
                                 console.log('Eliminación confirmada');
-                                // Agrega aquí la lógica para eliminar el elemento o realizar cualquier acción necesaria
-                                
+                                window.location = '/eliminar_recompensa/'+id
                             }
                         });
 

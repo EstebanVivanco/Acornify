@@ -26,10 +26,10 @@
       <div class="form-group">
         <label for="imagen">Imagen:</label><br>
         <img src="/uploads/<%= results[0].imagen %>" alt="" style="width: 100px; height: 100px;" >
-        <input type="file" class="form-control-file mt-2 " id="image" name="image" accept="image/*">
-      </div>
+        <input class="form-control" type="file" id="image" name="image" tabindex="1">
+          </div>
 
-
+      <input type="text" value="<%= results[0].imagen %>" id="imgexistente" name="imgexistente" >
   
       <div class="form-group">
         <label for="meta">Meta:</label>
@@ -52,18 +52,37 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
-  <script>
-
-    const imageInput = document.getElementById('image');
-
-    imageInput.addEventListener('change', function(event) {
-
-      const file = event.target.files[0];
-      imageInput.name = "image";
-
-    });
-    
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <% if(typeof alert !="undefined" ){ %>
+      <script>
+          Swal.fire({
+              title: '<%= alertTitle%>',
+              text: '<%= alertMessage%>',
+              icon: '<%= alertIcon%>',
+              showConfirmButton: <%= showConfirmButton%> ,
+              timer: <%= timer %>
+          }).then(() => {
+                  window.location = '/<%= ruta%>'
+              })
+      </script>
+      <% } %>
+      <script>
+              // Example starter JavaScript for disabling form submissions if there are invalid fields
+              (() => {
+                  'use strict'
+                  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  const forms = document.querySelectorAll('.needs-validation')
+                  // Loop over them and prevent submission
+                  Array.from(forms).forEach(form => {
+                      form.addEventListener('submit', event => {
+                          if (!form.checkValidity()) {
+                              event.preventDefault()
+                              event.stopPropagation()
+                          }
+                          form.classList.add('was-validated')
+                      }, false)
+                  })
+              })()
   </script>
 
 </body>
