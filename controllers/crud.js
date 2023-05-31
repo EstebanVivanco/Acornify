@@ -280,3 +280,29 @@ exports.aceptarrecompensa = (req, res)=>{
         })
 
 }
+
+exports.savestore =(req, res)=>{
+    const rut = req.body.rut;
+    const nombre = req.body.name;
+    const correo = req.body.correo;
+    const pass = req.body.password;
+    const imagen= req.file.filename;
+    const ubicacion = req.body.ubicacion;
+
+    conexion.query('INSERT INTO tienda SET ?', {rut_tienda:rut,nombre_tienda:nombre,email_tienda:correo,password_tienda:pass, logo:imagen, ubicacion_tienda:ubicacion}, (error, results)=>{
+
+        if(error){
+            throw error;
+        }else{
+            res.render('registroT',{
+                alert:true,
+                alertTitle: 'Resgistro',
+                alertMessage: 'Registro de tienda exitoso!',
+                alertIcon:'success',
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: 'loginTienda'
+            })
+        }
+    })
+}
