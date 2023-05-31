@@ -71,24 +71,26 @@
                                         }
 
                                         let p_finales = resultsT[0].puntos - recompensas.meta_canje;
+                                        let puntos = resultsT[0].puntos;
                                     %>
                                     <span>Faltan <%= p_faltantes %>  puntos</span>
                                     <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f" hidden>
                                 </div>
                             </div>
-                        <%}%>
+                        
 
                             <!-- Product actions-->
-                            <button type="submit" class="btn btn-primary form-control form-control-sm" id="submit-btn" tabindex="5">Guardar</button>
+                            
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <% if(user.puntos < recompensas.meta_canje){ %>
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto disabled" href="#"><%= recompensas.meta_canje %> puntos</a></div>
+                                <% if(puntos < recompensas.meta_canje){ %>
+                                        <div class="text-center"><button type="submit" disabled class="btn btn-outline-dark mt-auto" id="submit-btn" tabindex="5"><%= recompensas.meta_canje %> puntos</button></div>
                                     <% }else { %>
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= recompensas.meta_canje %> puntos</a></div>
+                                        <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto" id="submit-btn" tabindex="5"><%= recompensas.meta_canje %> puntos</button></div>
                                 <% } %>
                                     
                             </div>
                         </div>
+                        <%}%>
                     </form>
                 </div>
                 <% }) %>

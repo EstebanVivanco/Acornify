@@ -49,12 +49,12 @@ exports.caja =(req, res)=>{
 
 
 exports.saveuser =(req, res)=>{
-    const rut = req.body.rut;
-    const nombre = req.body.name;
-    const correo = req.body.correo;
-    const pass = req.body.password;
+    const rut_usuario = req.body.rut;
+    const nombre_usuario = req.body.name;
+    const email_usuario = req.body.correo;
+    const password_usuario = req.body.password;
 
-    conexion.query('INSERT INTO usuario SET ?', {rut_usuario:rut, nombre_usuario:nombre, email_usuario:correo, password_usuario:pass}, (error, results)=>{
+    conexion.query('CALL UsuarioConTarjeta  (?, ? ,? ,?)', [rut_usuario, nombre_usuario, email_usuario, password_usuario], (error, results)=>{
 
         if(error){
             throw error;
