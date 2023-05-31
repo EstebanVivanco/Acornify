@@ -14,7 +14,11 @@ class c_navbar extends HTMLElement{
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" href="/vista_catalogo">Tiendas</a></li>
+<<<<<<< HEAD
                     <li class="nav-item"><a class="nav-link active" href="/vista_historial/${this.id_historial}">Historial</a></li>
+=======
+                    <li class="nav-item"><a class="nav-link active" href="/vista_historial/<%=user.id_usuario%>">Historial</a></li>
+>>>>>>> d7b163088e2c4ba4633977db699b0ebca599965b
                 </ul>
             </div>
         </div>

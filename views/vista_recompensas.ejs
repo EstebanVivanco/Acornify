@@ -23,15 +23,22 @@
                     <li class="nav-item"><a class="nav-link active" href="/vista_catalogo">Tiendas</a></li>
                     <li class="nav-item"><a class="nav-link active" href="/vista_historial/<%= user.id_usuario %>">Historial</a></li>
                 </ul>
+                <ul class="navbar-nav  mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item align-items-right"><a class="nav-link active" href="/logout">Cerrar Sesion</a></li>
+                </ul>
             </div>
+            
         </div>
     </nav>
+
 
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Puntos acumulados</h1>
-                <p class="lead fw-normal  mb-0">Tienes <%= user.puntos %> puntos</p>
+                <% if(resultsT){ %>
+                <p class="lead fw-normal  mb-0">Tienes <%= resultsT[0].puntos %> puntos</p>
+                <%}%>
             </div>
         </div>
     </header>
@@ -43,8 +50,10 @@
                 <% results.forEach((recompensas) => { %>
                 <div class="col mb-5">
                     <form action="/canjeoDePuntos" method="POST">
-                        <input type="text" value="<%= recompensas.id_tienda %>" id="id" name="id"> <!-- Obtener id de la tienda-->
-                        <input type="text" value="<%= user.id_tarjeta_fk %>" id="id_tarjeta_fk" name="id_tarjeta_fk"> <!-- Obtener id de la tarjeta que se modificara-->
+                        <input type="text" value="<%= recompensas.id_tienda %>" id="id" name="id" hidden> <!-- Obtener id de la tienda-->
+                        <input type="text" value="<%= recompensas.id_recompensa %>" id="idrecompensa" name="idrecompensa" hidden > <!-- Obtener id de la recompensa-->
+                        <% if(resultsT){ %>
+                        <input type="text" value="<%= resultsT[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" hidden> <!-- Obtener id de la tarjeta que se modificara-->
                         <div class="card h-100">
                             <!-- Imagen de tienda -->
                             <img class="card-img-top" src="https://economiasustentable.com/wp-content/uploads/2020/01/starbucks-1-825x510.jpg" alt="...">
@@ -56,18 +65,19 @@
                                     <!-- Product price--> 
 
                                     <!-- puntos meta menos los puntos en la cuenta (no puede ser menor a 0)x-->
-                                    <%  let p_faltantes = recompensas.meta_canje - user.puntos;
+                                    <%  let p_faltantes = recompensas.meta_canje - resultsT[0].puntos;
                                         if (p_faltantes <= 0){
                                             p_faltantes = 0;
                                         }
 
-                                        let p_finales = user.puntos - recompensas.meta_canje;
-                                        
+                                        let p_finales = resultsT[0].puntos - recompensas.meta_canje;
                                     %>
                                     <span>Faltan <%= p_faltantes %>  puntos</span>
-                                    <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f">
+                                    <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f" hidden>
                                 </div>
                             </div>
+                        <%}%>
+
                             <!-- Product actions-->
                             <button type="submit" class="btn btn-primary form-control form-control-sm" id="submit-btn" tabindex="5">Guardar</button>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

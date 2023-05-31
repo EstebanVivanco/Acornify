@@ -1,0 +1,28 @@
+<% if(user) { %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vista de Producto Canjeado</title>
+  <!-- Agrega los enlaces a los estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container text-center mt-5">
+    <h1>¡Producto Canjeado!</h1>
+    <iframe src="https://giphy.com/embed/ND4ntvGe47jmpk86fS" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <p class="mt-4">¡Canje Confirmado! Has entrega del producto al cliente.</p>
+    <%if(user){%>
+        <a href="vista_aceptar_recompensas/<%= user.id_tienda%>" class="btn btn-primary">Revisarlo aquí</a>
+    <%}%>
+  </div>
+
+  <!-- Agrega los scripts de Bootstrap al final del archivo -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<%}else{%>
+    <h1>DENEGADOIDE</h1>
+<%}%>

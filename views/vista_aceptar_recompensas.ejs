@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceptar Recompensas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <!-- NAVBAR INICIO -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" > <%= user.nombre_tienda %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/caja">Caja</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/vista_crear_recompensa">Crear Recompensa</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/registros_recompensas/<%= user.id_tienda %>">Registros</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/vista_aceptar_recompensas/<%= user.id_tienda %>">Pendientes</a></li>
+                    
+                
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="/logout"> Cerrar Sesión </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- NAVBAR FINAL -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <% results.forEach((results) => { %>
+                <div class="col-sm-4 mt-2">
+                    <div class="card w-75" style="width: 18rem;">
+                        <form action="/aceptarrecompensa" method="post">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <img src="/uploads/<%= results.imagen %>" class="card-img-top" alt="..." style="width: 60px; height: 60px;" >
+                                    </div>
+                                    <div class="col-sm-9 mt-3">
+                                        <h3 class="card-title" style="margin-left: 5%;"> <%= results.nombre_recom %></h3>
+                                    </div>
+                                </div>
+                                <input type="text" name="idcanje" id="idcanje" value="<%= results.id_canjes%>" hidden>
+                                <hr class="border border-success border-1 opacity-50">
+                                <p class="card-text mt-3">El cliente <%= results.nombreusuario%> reclamo la recompensa <%= results.nombre_recom %>.<br> Da click en aceptar para finalizar la entrega. </p>
+                                <p class="card-text"><small class="text-body-secondary"><%= results.estadocanje ===0 ? 'Pendiente' : 'Completada' %></small></p>                 
+                                <p class="card-text"><small class="text-body-secondary">Canjeada el <%= results.fecharda %> </small></p>
+                                <% if(results.estadocanje ===0){%>
+                                    <button type="submit"  class="btn btn-success w-100">Finalizar entrega</button>
+                                <%}%>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <%})%>
+        </div>
+    </div>
+
+</body>
+</html>

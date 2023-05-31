@@ -97,6 +97,7 @@ exports.saverecompensa =(req, res)=>{
 
             })
         }
+
     })
 
 }
@@ -154,7 +155,7 @@ exports.validacion = (req, res)=>{
     const pass = req.body.password;
 
     if(correo && pass){
-        conexion.query('SELECT * FROM usuario INNER JOIN tarjeta ON id_tarjeta = id_tarjeta WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
+        conexion.query('SELECT * FROM usuario WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
             if(error){
                 throw error;
             }else{
@@ -232,32 +233,50 @@ exports.loginTienda = (req, res)=>{
 }
 
 exports.canjeoDePuntos = (req, res)=>{
+
     const id = req.body.id;
     const id_tarjeta_fk = req.body.id_tarjeta_fk;
     const puntos_f = req.body.puntos_f;
+    const idrecompensa = req.body.idrecompensa;
+    var fechaActual = new Date();
 
+    console.log('iderecompensa :>> ', idrecompensa);
         conexion.query('UPDATE tarjeta SET ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
 
             if(error){
                 throw error;
             }else{
-    
-                conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results2) => {
-                    res.render('vista_recompensas',{
-                        alert:true,
-                        alertTitle: 'RECOMPENSA RECLAMADA',
-                        alertMessage: 'Se han restado los puntos a su tarjeta !',
-                        alertIcon:'success',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        ruta: 'vista_catalogo',
-                        results:results,
-                        results:results2,
-                        user: req.session.user
-                        
-                    })
+
+                conexion.query('INSERT INTO canje SET ?', {id_usuario_fk: req.session.user.id_usuario, id_recompensa_fk: idrecompensa, id_tienda_fk: id, estado: 0, fecha_canje: fechaActual}, (error, results)=>{
+                   
+                    if(error){
+                        throw error;
+                    }else{
+                        res.render('intermediaria_canjeo', {user: req.session.user});
+                    }
+
                 })
+
             }
+
+        })
+
+}
+
+exports.aceptarrecompensa = (req, res)=>{
+
+    const idcanje = req.body.idcanje;
+
+        conexion.query('UPDATE canje SET ? WHERE id_canjes = ?', [{estado:1}, idcanje], (error, results)=>{
+
+            if(error){
+                throw error;
+            }else{
+
+                res.render('vista_intermediaria_aceptar_canje', {user: req.session.user});
+
+            }
+
         })
 
 }
