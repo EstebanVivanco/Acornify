@@ -24,29 +24,27 @@
 
     <body>
 
-        <!-- NAVBAR INICIO -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">
-                    <%= user.nombre_tienda %>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/caja">Caja</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page"
-                                href="/vista_crear_recompensa">Crear Recompensa</a></li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="/registros_recompensas/<%= user.id_tienda %>">Registros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout"> Cerrar Sesión </a></li>
-                    </ul>
-                </div>
+    <!-- NAVBAR INICIO -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" > <%= user.nombre_tienda %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/caja">Caja</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/vista_crear_recompensa">Crear Recompensa</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/registros_recompensas/<%= user.id_tienda %>">Registros</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/vista_aceptar_recompensas/<%= user.id_tienda %>">Pendientes</a></li>
+                    
+                
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="/logout"> Cerrar Sesión </a></li>
+                </ul>
             </div>
-        </nav>
-        <!-- NAVBAR FINAL -->
+        </div>
+    </nav>
+    <!-- NAVBAR FINAL -->
 
         <div class="container mt-5">
             <div class="row">

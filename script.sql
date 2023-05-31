@@ -47,6 +47,7 @@ CREATE TABLE registro_compra (
     id_registro_compra INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario_fk INT not null,
     id_tienda_fk INT not null,
+    estado boolean not null,
     fecha_compra DATE,
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario)
@@ -58,8 +59,10 @@ CREATE TABLE canje (
     id_canjes INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario_fk INT not null,
     id_recompensa_fk INT not null,
+    id_tienda_fk INT not null,
     fecha_canje DATE,
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_recompensa_fk) REFERENCES recompensa(id_recompensa)
 
 );
