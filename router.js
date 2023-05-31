@@ -150,6 +150,10 @@ router.get('/logout',  (req, res)=>{
 
 })
 
+router.get('/registroT', (req, res)=>{
+    res.render('registroT');
+})
+
 const crud = require('./controllers/crud');
 
 router.post('/validacion', crud.validacion);
@@ -159,4 +163,5 @@ router.post('/updaterecompensa', crud.updaterecompensa);
 router.post('/caja', crud.caja);
 router.post('/loginTienda',crud.loginTienda);
 router.post('/canjeoDePuntos', crud.canjeoDePuntos);
+router.post('/savestore', crud.savestore);
 module.exports = router;
