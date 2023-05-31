@@ -37,10 +37,11 @@
 
     <section class="py-5">
         <% results.forEach((tienda) => { %>
-        <a style="text-decoration: none; color: black;" href="">
+        
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col-md-6 col-12">
+                    <div class="col-md-6 col-12 mb-5 ">
+                        <a style="text-decoration: none; color: black;" href="vista_recompensas/<%= tienda.id_tienda%>">
                         <div class="card h-100 ">
                             <!-- Imagen de tienda -->
                             <div class="ratio ratio-4x3">
@@ -56,10 +57,11 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
-        </a>
+        
         <% }) %>
 
                 

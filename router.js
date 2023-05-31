@@ -32,14 +32,15 @@ router.get('/vista_catalogo',(req, res) =>{
     }) 
 })
 
-router.get('/vista_recompensas',(req, res) =>{
+router.get('/vista_recompensas/:id',(req, res) =>{
 
-    conexion.query('SELECT * FROM recompensa', (error, results) => {
+    const id = req.params.id;
+    conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results) => {
         if(error){
             throw error;
     
         }else{
-            res.render('vista_recompensas', {results: results})
+            res.render('vista_recompensas', {results: results, user : req.session.user})
         }
     }) 
 })
@@ -68,6 +69,7 @@ router.get('/',  (req, res)=>{
 
 })
 
+
 router.get('/registros_recompensas/:id',  (req, res)=>{
 
     const id = req.params.id;
@@ -79,7 +81,46 @@ router.get('/registros_recompensas/:id',  (req, res)=>{
             throw error;
     
         }else{
-            res.render('registros_recompensas', {user : req.session.user, results: results});
+            res.render('registros_recompensas', {user: req.session.user, results: results});
+        }
+    }) 
+    
+
+})
+
+router.get('/editar_recompensa/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('SELECT * FROM recompensa WHERE id_recompensa = ?',[id], (error, results) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            res.render('vista_editar_recompensa', {user : req.session.user,results: results});
+        }
+    }) 
+    
+
+})
+
+router.get('/eliminar_recompensa/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE recompensa SET estado = 1 WHERE id_recompensa = ?',[id], (error, results) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+                conexion.query('SELECT * FROM recompensa WHERE id_tienda_fk = ?',[req.session.user.id_tienda], (error, results) => {
+                
+                    res.render('registros_recompensas' , {user: req.session.user, results: results});
+                }) 
         }
     }) 
     
@@ -114,6 +155,8 @@ const crud = require('./controllers/crud');
 router.post('/validacion', crud.validacion);
 router.post('/saveuser', crud.saveuser);
 router.post('/saverecompensa', crud.saverecompensa);
+router.post('/updaterecompensa', crud.updaterecompensa);
 router.post('/caja', crud.caja);
 router.post('/loginTienda',crud.loginTienda);
+router.post('/canjeoDePuntos', crud.canjeoDePuntos);
 module.exports = router;

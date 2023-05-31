@@ -101,12 +101,60 @@ exports.saverecompensa =(req, res)=>{
 
 }
 
+exports.updaterecompensa =(req, res)=>{
+
+    const id = req.body.id;
+    const idr = req.body.idr;
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const estado = req.body.estado;
+    const meta = req.body.meta;
+    const image = req.file?.filename;
+    const imgBD = req.body.imgexistente;
+    let parametroImagen = '';
+
+    if (image !== undefined) {
+        parametroImagen = image;
+        console.log('parametroImagen :>> ', parametroImagen);
+    }else{
+        parametroImagen = imgBD;
+        console.log('parametroImagen :>> ', parametroImagen);
+
+    }
+
+
+
+    conexion.query('Update recompensa SET ? WHERE id_recompensa = ?', [{id_tienda_fk:id, nombre_producto:nombre, descripcion_producto:descripcion, imagen: parametroImagen, meta_canje:meta, estado: estado}, idr], (error, result1s)=>{
+
+        if(error){
+            throw error;
+        }else{
+            conexion.query('SELECT * FROM recompensa WHERE id_tienda_fk = ?',[id], (error, results) => {
+
+                res.render('vista_editar_recompensa' ,{
+                    alert:true,
+                    alertTitle: 'RECOMPENSA ACTUALIZADA',
+                    alertMessage: 'Se ha actualizado la recompensa !',
+                    alertIcon:'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: 'registros_recompensas/'+id,
+                    user: req.session.user,
+                    results:results
+
+                })
+            })
+        }
+    })
+
+}
+
 exports.validacion = (req, res)=>{
     const correo = req.body.email;
     const pass = req.body.password;
 
     if(correo && pass){
-        conexion.query('SELECT * FROM usuario WHERE email_usuario = ? AND password_usuario = ?', [correo, pass], (error, results)=>{
+        conexion.query('SELECT * FROM usuario INNER JOIN tarjeta ON id_tarjeta = id_tarjeta WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
             if(error){
                 throw error;
             }else{
@@ -119,7 +167,8 @@ exports.validacion = (req, res)=>{
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_recompensas'
+                        ruta: 'vista_catalogo',
+                        user: req.session.user = results[0]
                     })
                 }else{
                     //NO ENTRA
@@ -179,5 +228,36 @@ exports.loginTienda = (req, res)=>{
             }
         })
     }
+
+}
+
+exports.canjeoDePuntos = (req, res)=>{
+    const id = req.body.id;
+    const id_tarjeta_fk = req.body.id_tarjeta_fk;
+    const puntos_f = req.body.puntos_f;
+
+        conexion.query('UPDATE tarjeta SET ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
+
+            if(error){
+                throw error;
+            }else{
+    
+                conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results2) => {
+                    res.render('vista_recompensas',{
+                        alert:true,
+                        alertTitle: 'RECOMPENSA RECLAMADA',
+                        alertMessage: 'Se han restado los puntos a su tarjeta !',
+                        alertIcon:'success',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta: 'vista_catalogo',
+                        results:results,
+                        results:results2,
+                        user: req.session.user
+                        
+                    })
+                })
+            }
+        })
 
 }
