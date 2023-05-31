@@ -32,6 +32,7 @@ router.get('/vista_catalogo',(req, res) =>{
 router.get('/vista_recompensas/:id',(req, res) =>{
 
     const id = req.params.id;
+    const id_user = req.session.user.id_usuario;
 
     conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results) => {
         if(error){
@@ -40,20 +41,24 @@ router.get('/vista_recompensas/:id',(req, res) =>{
         }else{
 
             console.log('req.session.userASDASDASDASD :>> ', req.session.user.id_tarjeta_fk);
-            
+
             conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?', [req.session.user.id_tarjeta_fk], (error, resultsT) => {
 
-                res.render('vista_recompensas', {results: results, user : req.session.user, resultsT:resultsT} )
-                
+                conexion.query('SELECT COUNT(*) AS asistido FROM registro_compra WHERE id_usuario_fk = ? AND id_tienda_fk = ?;', [id_user , id], (error, asistencia)=>{
+
+                    console.log("asistencia:   -- >>> ", asistencia[0].asistido);
+
+                    res.render('vista_recompensas', {results: results, user : req.session.user, resultsT:resultsT , asistencia: asistencia} )
+                })
             })
         }
     }) 
-
 })
 
 router.get('/vista_historial/:id(\\d+)',(req, res) =>{
 
     const id = req.params.id;
+    
 
     console.log('id :>> ', id);
 

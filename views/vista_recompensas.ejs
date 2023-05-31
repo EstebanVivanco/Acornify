@@ -37,7 +37,11 @@
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Puntos acumulados</h1>
                 <% if(resultsT){ %>
-                <p class="lead fw-normal  mb-0">Tienes <%= resultsT[0].puntos %> puntos</p>
+                    <p class="lead fw-normal  mb-0">Tienes <%= resultsT[0].puntos %> puntos</p>
+                <%}%>
+                
+                <% if(asistencia[0].asistido < 3){ %>
+                    <p class="fs-5 fw-bolder">Para poder reclamar recompensas debe haber comprado almenos tres veces en esta tienda</p>
                 <%}%>
             </div>
         </div>
@@ -65,29 +69,47 @@
                                     <!-- Product price--> 
 
                                     <!-- puntos meta menos los puntos en la cuenta (no puede ser menor a 0)x-->
+
+                                    
                                     <%  let p_faltantes = recompensas.meta_canje - resultsT[0].puntos;
+                                    
+                                        let mensaje = "Faltan " + p_faltantes + " puntos";
+
                                         if (p_faltantes <= 0){
                                             p_faltantes = 0;
+
+                                            mensaje = "Canjeable!"
                                         }
 
                                         let p_finales = resultsT[0].puntos - recompensas.meta_canje;
                                         let puntos = resultsT[0].puntos;
                                     %>
-                                    <span>Faltan <%= p_faltantes %>  puntos</span>
+                                    <span><%= mensaje %></span>
+                                    <!-- la variable de mensaje es la que establece el texto que se muestra en el span de la tarjeta -->
                                     <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f" hidden>
                                 </div>
                             </div>
-                        
+
 
                             <!-- Product actions-->
                             
+
+
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <% if(puntos < recompensas.meta_canje){ %>
+                                <% if(asistencia[0].asistido < 3){ %>
+                                    <!-- Cuando la asistencia es menor a 3, mostrara todas las cards en disable -->
+                                    <div class="text-center"><button type="submit" disabled class="btn btn-outline-dark mt-auto" id="submit-btn" tabindex="5"><%= recompensas.meta_canje %> puntos</button></div>
+
+                                <% }else{ %>
+                                    <!-- si los puntos del usuario son menores a los de la meta del canje, el boton de la carta se muestra disable -->
+                                    <% if(puntos < recompensas.meta_canje){ %>
                                         <div class="text-center"><button type="submit" disabled class="btn btn-outline-dark mt-auto" id="submit-btn" tabindex="5"><%= recompensas.meta_canje %> puntos</button></div>
                                     <% }else { %>
                                         <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto" id="submit-btn" tabindex="5"><%= recompensas.meta_canje %> puntos</button></div>
+                                    <% } %>
+
                                 <% } %>
-                                    
+
                             </div>
                         </div>
                         <%}%>
