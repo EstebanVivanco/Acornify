@@ -3,15 +3,11 @@ const conexion = require('./database/bd');
 const router = express.Router();
 
 router.get('/',  (req, res)=>{
-
     res.render('login');
-
 })
 
 router.get('/loginTienda',  (req, res)=>{
-
     res.render('loginTienda',{user : req.session.user});
-
 })
 
 
@@ -23,12 +19,13 @@ router.get("/registro", (req, res)=>{
 router.get('/vista_catalogo',(req, res) =>{
 
     conexion.query('SELECT * FROM tienda', (error, results) => {
+        
         if(error){
             throw error;
-    
         }else{
             res.render('vista_catalogo', {results: results, user: req.session.user})
         }
+
     }) 
 })
 
@@ -66,7 +63,12 @@ router.get('/vista_historial/:id(\\d+)',(req, res) =>{
             throw error;
     
         }else{
-            res.render('vista_historial', {results: results, user: req.session.user})
+
+            conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?', [req.session.user.id_tarjeta_fk], (error, resultsT) => {
+
+                res.render('vista_historial', {results: results, user: req.session.user, resultsT:resultsT})
+
+            })
         }
 
     }) 
