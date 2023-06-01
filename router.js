@@ -56,7 +56,7 @@ router.get('/vista_historial/:id(\\d+)',(req, res) =>{
     const id = req.params.id;
 
     console.log('id :>> ', id);
-
+ 
     conexion.query('SELECT canje.id_canjes, DATE_FORMAT(canje.fecha_canje, "%d/%m/%Y") AS fecharda, canje.estado AS "estadocanje" ,recompensa.nombre_producto AS "nombre_recom", recompensa.meta_canje AS "puntos",recompensa.imagen AS "imagen", tienda.nombre_tienda AS "nombre_tienda", tienda.ubicacion_tienda AS "ubicacion" FROM canje INNER JOIN recompensa ON canje.id_recompensa_fk = recompensa.id_recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda INNER JOIN usuario ON canje.id_usuario_fk = usuario.id_usuario WHERE usuario.id_usuario = ?',[id], (error, results) => {
        
         if(error){
