@@ -71,6 +71,30 @@ INSERT INTO tarjeta VALUES (NULL, 7, NULL);
 INSERT INTO usuario VALUES ( NULL,'11111111-1', 'Alexis Sanchez', 'Alexis@Sanchez.com', '123', 1);
 INSERT INTO tienda VALUES  ( NULL,'76129263-3','Cafeterin Bombin', 'cafeterin@bombin.com', '123', 'Alameda #132','LOGO.jpg');
 INSERT INTO recompensa VALUES ( NULL, 1, 'Cafézoide', 'Cafecito calientito gratis al conseguir tu recompensa','AA', 10, 1);
-INSERT INTO recompensa VALUES ( null, 1 , 'Muffin Bombin', 'Muffin de chocolate bombin con gluten y grasas trans', 'AA', 12, 1) 
+INSERT INTO recompensa VALUES ( null, 1 , 'Muffin Bombin', 'Muffin de chocolate bombin con gluten y grasas trans', 'AA', 12, 1)
+
+
+DELIMITER //
+
+CREATE PROCEDURE UsuarioConTarjeta(
+    IN p_rut VARCHAR(50),
+    IN p_nombre VARCHAR(50),
+    IN p_email VARCHAR(50),
+    IN p_password VARCHAR(50)
+)
+BEGIN
+    DECLARE v_tarjeta_id INT;
+
+	-- Insertar la tarjeta asociada al usuario
+    INSERT INTO tarjeta (puntos, rfidtag) VALUES (0, null);
+    SET v_tarjeta_id = LAST_INSERT_ID();
+    
+    -- Insertar el usuario
+    INSERT INTO usuario (rut_usuario, nombre_usuario, email_usuario, password_usuario, id_tarjeta_fk) VALUES (p_rut, p_nombre, p_email, p_password, v_tarjeta_id);
+    
+END //
+
+DELIMITER ;
+
 
 
