@@ -60,6 +60,7 @@ CREATE TABLE canje (
     id_usuario_fk INT not null,
     id_recompensa_fk INT not null,
     id_tienda_fk INT not null,
+    estado TINYINT not null,
     fecha_canje DATE,
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
