@@ -5,6 +5,30 @@ const session = require('express-session');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 
+const SerialPort = require('serialport').SerialPort;
+const {DelimiterParser} = require('@serialport/parser-delimiter')
+
+
+const puerto = new SerialPort({
+    path: 'COM5',
+    baudRate: 115200
+});
+
+const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
+
+parser.on('open', function(){
+    console.log('con open');
+})
+
+parser.on('data', function(data){
+    
+    var enc = new TextDecoder();
+    var arr = new Uint8Array(data);
+    ready = enc.decode(arr);
+    console.log('ready :>> ', ready);
+
+})
+
 const app = express();
 
 const storage = multer.diskStorage({

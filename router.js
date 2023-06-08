@@ -18,12 +18,15 @@ router.get("/registro", (req, res)=>{
 
 router.get('/vista_catalogo',(req, res) =>{
 
+    console.log('req.session.uid :>> ', req.session.uid);
+
     conexion.query('SELECT * FROM tienda', (error, results) => {
         
         if(error){
             throw error;
         }else{
-            res.render('vista_catalogo', {results: results, user: req.session.user})
+
+            res.render('vista_catalogo', {results: results, user: req.session.user, uid: req.session.uid })
         }
 
     }) 
