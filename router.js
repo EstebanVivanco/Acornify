@@ -18,7 +18,7 @@ router.get("/registro", (req, res)=>{
 
 router.get('/vista_catalogo',(req, res) =>{
 
-    console.log('req.session.uid :>> ', req.session.uid);
+    
 
     conexion.query('SELECT * FROM tienda', (error, results) => {
         
@@ -33,16 +33,12 @@ router.get('/vista_catalogo',(req, res) =>{
 })
 
 router.get('/vista_recompensas/:id',(req, res) =>{
-
     const id = req.params.id;
     const id_user = req.session.user.id_usuario;
-
     conexion.query('SELECT * FROM recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda WHERE id_tienda_fk = ?', [id], (error, results) => {
         if(error){
             throw error;
-    
         }else{
-
             console.log('req.session.userASDASDASDASD :>> ', req.session.user.id_tarjeta_fk);
 
             conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?', [req.session.user.id_tarjeta_fk], (error, resultsT) => {

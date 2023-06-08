@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="c_navbar.js"></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Acornify</title>
 </head>
@@ -35,6 +36,18 @@
             
         </div>
     </nav>
+    <div class="container-fluid pt-5 d-flex  justify-content-center">
+        <div class="card w-50">
+            <div class="card-header text-center d-flex justify-content-center align-items-center bg-warning">
+                <h4>Bienvenido! <%= user.nombre_usuario %></h1>
+            </div>
+            <div class="card-body">
+
+              <h5 class="card-title text-center">En esta seccion podras seleccionar la tienda en la que quieras canjear productos.</h5>
+              <h6 class="card-text text-center"> Recuerda que al comprar un articulo añadiras solo un punto para canjear productos</h6>
+            </div>
+          </div>
+    </div>
     
     <nabin-bombin id_historial="<%= user.id_usuario %>"></nabin-bombin>
 
