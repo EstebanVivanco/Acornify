@@ -14,20 +14,20 @@ const puerto = new SerialPort({
     baudRate: 115200
 });
 
-const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
+ const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
 
-parser.on('open', function(){
-    console.log('con open');
-})
+ parser.on('open', function(){
+     console.log('con open');
+ })
 
-parser.on('data', function(data){
+ parser.on('data', function(data){
     
-    var enc = new TextDecoder();
-    var arr = new Uint8Array(data);
-    ready = enc.decode(arr);
-    console.log('ready :>> ', ready);
+     var enc = new TextDecoder();
+     var arr = new Uint8Array(data);
+     ready = enc.decode(arr);
+     console.log('ready :>> ', ready);
 
-})
+ })
 
 const app = express();
 
