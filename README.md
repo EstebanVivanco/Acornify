@@ -8,7 +8,7 @@ Lo primero es tener instalado Node, obviamente, después hacen el pull del repo 
 
 Luego de eso debemos instalar las dependencias que vamos a ocupar, de momento no estan todas pero son las siguientes: 
 
-    1. npm i  ejs express nodemon mysql express-session
+    1. npm i  ejs express nodemon mysql express-session serialport socket.io
 
 Agregamos los iconos de boostrap
 
