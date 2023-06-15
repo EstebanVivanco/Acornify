@@ -9,9 +9,6 @@ const {DelimiterParser} = require('@serialport/parser-delimiter')
 
 const app = express();
 
-
-
-
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'public/uploads'),
     filename: function (req, file, cb) {
