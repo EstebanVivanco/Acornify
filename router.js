@@ -57,11 +57,54 @@ router.get('/vista_recompensas/:id',(req, res) =>{
 router.get('/vista_historial/:id(\\d+)',(req, res) =>{
 
     const id = req.params.id;
-    
 
     console.log('id :>> ', id);
+
+    const query = `SELECT
+    u.nombre_usuario,
+    t.nombre_tienda,
+    COALESCE(rc.fecha_compra, c.fecha_canje) AS fecha_operacion,
+    r.nombre_producto,
+    CASE
+        WHEN rc.id_registro_compra IS NOT NULL THEN COALESCE(tarjeta.puntos, 0)
+        WHEN c.id_canjes IS NOT NULL THEN r.meta_canje
+    END AS puntos,
+    CASE
+        WHEN rc.id_registro_compra IS NOT NULL THEN 'Compra'
+        WHEN c.id_canjes IS NOT NULL THEN 'Canje'
+    END AS tipo_operacion
+FROM
+    (SELECT
+        id_usuario_fk,
+        id_tienda_fk,
+        fecha_compra,
+        NULL AS id_canje,
+        id_registro_compra,
+        NULL AS id_recompensa_fk
+    FROM
+        registro_compra
+    UNION ALL
+    SELECT
+        id_usuario_fk,
+        id_tienda_fk,
+        fecha_canje,
+        id_canjes,
+        NULL AS id_registro_compra,
+        id_recompensa_fk
+    FROM
+        canje) AS operaciones
+    INNER JOIN usuario u ON operaciones.id_usuario_fk = u.id_usuario
+    INNER JOIN tienda t ON operaciones.id_tienda_fk = t.id_tienda
+    LEFT JOIN registro_compra rc ON rc.id_registro_compra = operaciones.id_registro_compra
+    LEFT JOIN canje c ON c.id_canjes = operaciones.id_canje
+    LEFT JOIN recompensa r ON r.id_recompensa = operaciones.id_recompensa_fk
+    LEFT JOIN tarjeta ON u.id_tarjeta_fk = tarjeta.id_tarjeta
+WHERE
+    u.id_usuario = ${id}
+ORDER BY
+    fecha_operacion DESC;`;
  
-    conexion.query('SELECT canje.id_canjes, DATE_FORMAT(canje.fecha_canje, "%d/%m/%Y") AS fecharda, canje.estado AS "estadocanje" ,recompensa.nombre_producto AS "nombre_recom", recompensa.meta_canje AS "puntos",recompensa.imagen AS "imagen", tienda.nombre_tienda AS "nombre_tienda", tienda.ubicacion_tienda AS "ubicacion" FROM canje INNER JOIN recompensa ON canje.id_recompensa_fk = recompensa.id_recompensa INNER JOIN tienda ON recompensa.id_tienda_fk = tienda.id_tienda INNER JOIN usuario ON canje.id_usuario_fk = usuario.id_usuario WHERE usuario.id_usuario = ?',[id], (error, results) => {
+    conexion.query(query, (error, results) => {
        
         if(error){
             throw error;

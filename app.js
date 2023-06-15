@@ -54,14 +54,14 @@ const io = require('socket.io')(server);
 
 
 const puerto = new SerialPort({
-    path: 'COM5',
-    baudRate: 115200
+   path: 'COM5',
+   baudRate: 115200
 });
 
 const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
 
 parser.on('open', function(){
-    console.log('con open');
+   console.log('con open');
 })
 
 parser.on('data', function(data){
