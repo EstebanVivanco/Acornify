@@ -61,8 +61,8 @@ exports.saveuser =(req, res)=>{
         }else{
             res.render('registro',{
                 alert:true,
-                alertTitle: 'Resgistro',
-                alertMessage: 'Registro de usuario exitoso!',
+                alertTitle: 'Registro',
+                alertMessage: '¡Registro de usuario exitoso!',
                 alertIcon:'success',
                 showConfirmButton: false,
                 timer: 1500,
@@ -89,7 +89,7 @@ exports.saverecompensa =(req, res)=>{
             res.render('vista_crear_recompensa',{
                 alert:true,
                 alertTitle: 'RECOMPENSA NUEVA',
-                alertMessage: 'Se ha registrado una nueva recompensa !',
+                alertMessage: '!Se ha registrado una nueva recompensa!',
                 alertIcon:'success',
                 showConfirmButton: false,
                 timer: 1500,
@@ -136,7 +136,7 @@ exports.updaterecompensa =(req, res)=>{
                 res.render('vista_editar_recompensa' ,{
                     alert:true,
                     alertTitle: 'RECOMPENSA ACTUALIZADA',
-                    alertMessage: 'Se ha actualizado la recompensa !',
+                    alertMessage: '¡Se ha actualizado la recompensa!',
                     alertIcon:'success',
                     showConfirmButton: false,
                     timer: 1500,
@@ -165,8 +165,8 @@ exports.validacion = (req, res)=>{
                     res.render('login',{
                         alert:true,
                         alertTitle: 'Conexion exitosa',
-                        alertMessage: 'Bienvenido! ',
-                        alertIcon:'succes',
+                        alertMessage: '¡Bienvenido! ',
+                        alertIcon:'success',
                         showConfirmButton: false,
                         timer: 1500,
                         ruta: 'vista_catalogo',
@@ -205,7 +205,7 @@ exports.loginTienda = (req, res)=>{
 
                         alert:true,
                         alertTitle: 'Conexion exitosa',
-                        alertMessage: 'Bienvenido! ',
+                        alertMessage: '¡Bienvenido! ',
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
@@ -298,7 +298,7 @@ exports.savestore =(req, res)=>{
             res.render('registroT',{
                 alert:true,
                 alertTitle: 'Resgistro',
-                alertMessage: 'Registro de tienda exitoso!',
+                alertMessage: '¡Registro de tienda exitoso!',
                 alertIcon:'success',
                 showConfirmButton: false,
                 timer: 1500,
