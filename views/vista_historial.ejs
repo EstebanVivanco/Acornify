@@ -75,18 +75,25 @@
             <div class="card mt-3">
               <div class="row g-0 d-flex">
                 <div class="col-8">
+
                   <div class="card-body">
+                    <p class="card-text fs-3"><%= results.fecha_operacion %></p>
                     <h5 class="card-title"><%= results.nombre_tienda %></h5>
-                    <p class="card-text"><%= results.ubicacion %></p>
                     <p class="card-text"><%= results.fecharda %></p>
-                    <p class="card-text">Estado: <%= results.estadocanje ===0 ? 'Pendiente' : 'Completada' %></p>
+                    <% if(results.tipo_operacion == 'Canje'){ %>
+                      <p class="card-text">Estado: <%= results.estado_canje ===0 ? 'Pendiente' : 'Completada' %></p>
+                    <% }  %>
+                    
                     <hr>
-                    <p class="card-text fs-3"><small class="text-muted"><%= results.nombre_recom %> | <%= results.puntos %> </small></p>
+                    <p class="card-text fs-3"><small class="text-muted"><%= results.nombre_producto %> | <%= results.puntos %> </small></p>
                   </div>
+
                 </div>
                 <div class="col-4 text-end">
                     <img class="img-fluid h-100" src="/uploads/<%= results.imagen %>" alt="..." width="200">
-                  </div>
+                </div>
+
+            
               </div>
             </div>
           </div>

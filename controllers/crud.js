@@ -11,6 +11,7 @@ exports.caja =(req, res)=>{
 
         const id_usuario = results[0].id_usuario;
         const id_tarjeta_fk = results[0].id_tarjeta_fk;
+        var fechaActual = new Date();
 
         conexion.query('SELECT puntos FROM tarjeta WHERE id_tarjeta = ?', [id_tarjeta_fk], (error, results)=>{
 
@@ -19,7 +20,7 @@ exports.caja =(req, res)=>{
 
             conexion.query('Update tarjeta SET ? WHERE id_tarjeta = ?', [{puntos: NuevosPuntos}, id_tarjeta_fk], (error, results)=>{
 
-                conexion.query('INSERT INTO registro_compra SET ?', {id_usuario_fk : id_usuario, id_tienda_fk: 1, fecha_compra: '23-05-05'}, (error, results)=>{
+                conexion.query('INSERT INTO registro_compra SET ?', {id_usuario_fk : id_usuario, id_tienda_fk: 1, puntos_entregados: 1 , fecha_compra: fechaActual}, (error, results)=>{
                     
                     if(error){
                         throw error;

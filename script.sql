@@ -48,6 +48,7 @@ CREATE TABLE registro_compra (
     id_usuario_fk INT not null,
     id_tienda_fk INT not null,
     estado boolean not null,
+    puntos_compra INT,
     fecha_compra DATE,
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario)

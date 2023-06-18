@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname,'public')));
 //Permitir usar componentes
 app.use(express.static(path.join(__dirname,'public/components')));
 app.use(express.static(path.join(__dirname,'helpers')));
-app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
+// app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
 //Sessions
 app.use(session({
     secret: "secret",
@@ -50,43 +50,43 @@ const server = app.listen(5000, ()=>{
     console.log("Server corriendo en el puerto 5000, buenas");
 });
 
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 
 
-const puerto = new SerialPort({
-   path: 'COM5',
-   baudRate: 115200
-});
+// const puerto = new SerialPort({
+//    path: 'COM5',
+//    baudRate: 115200
+// });
 
-const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
+// const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
 
-parser.on('open', function(){
-   console.log('con open');
-})
+// parser.on('open', function(){
+//    console.log('con open');
+// })
 
-parser.on('data', function(data){
+// parser.on('data', function(data){
     
-    var enc = new TextDecoder();
-    var arr = new Uint8Array(data);
-    ready = enc.decode(arr);
-    io.emit("arduino:data",{
-        value: ready
-    });
-    console.log('ready :>> ', ready);
+//     var enc = new TextDecoder();
+//     var arr = new Uint8Array(data);
+//     ready = enc.decode(arr);
+//     io.emit("arduino:data",{
+//         value: ready
+//     });
+//     console.log('ready :>> ', ready);
 
-})
+// })
 
-// Evento que se ejecuta cuando un cliente se conecta al servidor
-io.on('connection', (socket) => {
-    console.log('Un cliente se ha conectado');
+// // Evento que se ejecuta cuando un cliente se conecta al servidor
+// io.on('connection', (socket) => {
+//     console.log('Un cliente se ha conectado');
   
-    // Evento que se ejecuta cuando un cliente envía un mensaje
-    socket.on('mensaje', (data) => {
-      console.log('Mensaje recibido:', data);
-    });
+//     // Evento que se ejecuta cuando un cliente envía un mensaje
+//     socket.on('mensaje', (data) => {
+//       console.log('Mensaje recibido:', data);
+//     });
   
-    // Evento que se ejecuta cuando un cliente se desconecta del servidor
-    socket.on('disconnect', () => {
-      console.log('Un cliente se ha desconectado');
-    });
-  });
+//     // Evento que se ejecuta cuando un cliente se desconecta del servidor
+//     socket.on('disconnect', () => {
+//       console.log('Un cliente se ha desconectado');
+//     });
+//   });
