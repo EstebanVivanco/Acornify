@@ -49,7 +49,7 @@ CREATE TABLE registro_compra (
     id_tienda_fk INT not null,
     estado boolean not null,
     puntos_compra INT,
-    fecha_compra DATE,
+    fecha_compra DATETIME,
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario)
 
@@ -62,7 +62,7 @@ CREATE TABLE canje (
     id_recompensa_fk INT not null,
     id_tienda_fk INT not null,
     estado TINYINT not null,
-    fecha_canje DATE,
+    fecha_canje DATETIME,
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_recompensa_fk) REFERENCES recompensa(id_recompensa)

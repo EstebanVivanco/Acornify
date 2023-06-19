@@ -63,49 +63,52 @@ router.get('/vista_historial/:id(\\d+)',(req, res) =>{
     const query = `SELECT
     u.nombre_usuario,
     t.nombre_tienda,
-    DATE_FORMAT(COALESCE(rc.fecha_compra, c.fecha_canje), '%d/%m/%Y') AS fecha_operacion,
+    t.ubicacion_tienda,
+    DATE_FORMAT(COALESCE(rc.fecha_compra, c.fecha_canje), '%Y/%m/%d %H:%i:%s') AS fecha_operacion,
+    DATE_FORMAT(COALESCE(rc.fecha_compra, c.fecha_canje), '%d/%m/%Y') AS fecha_formateada,
+    DATE_FORMAT(COALESCE(rc.fecha_compra, c.fecha_canje), '%H:%i:%s') AS hora_formateada,
     r.nombre_producto,
     CASE
-      WHEN rc.id_registro_compra IS NOT NULL THEN NULL
-      WHEN c.id_canjes IS NOT NULL THEN r.meta_canje
+        WHEN rc.id_registro_compra IS NOT NULL THEN NULL
+        WHEN c.id_canjes IS NOT NULL THEN r.meta_canje
     END AS puntos,
     CASE
-      WHEN rc.id_registro_compra IS NOT NULL THEN 'Compra'
-      WHEN c.id_canjes IS NOT NULL THEN 'Canje'
+        WHEN rc.id_registro_compra IS NOT NULL THEN 'Compra'
+        WHEN c.id_canjes IS NOT NULL THEN 'Canje'
     END AS tipo_operacion,
     c.estado AS estado_canje,
     rc.puntos_compra AS puntos_compra
-  FROM
+FROM
     (SELECT
-      id_usuario_fk,
-      id_tienda_fk,
-      fecha_compra,
-      NULL AS id_canje,
-      id_registro_compra,
-      NULL AS id_recompensa_fk,
-      puntos_compra
+        id_usuario_fk,
+        id_tienda_fk,
+        fecha_compra,
+        NULL AS id_canje,
+        id_registro_compra,
+        NULL AS id_recompensa_fk,
+        puntos_compra
     FROM
-      registro_compra
+        registro_compra
     UNION ALL
     SELECT
-      id_usuario_fk,
-      id_tienda_fk,
-      fecha_canje,
-      id_canjes,
-      NULL AS id_registro_compra,
-      id_recompensa_fk,
-      NULL AS puntos_compra
+        id_usuario_fk,
+        id_tienda_fk,
+        fecha_canje,
+        id_canjes,
+        NULL AS id_registro_compra,
+        id_recompensa_fk,
+        NULL AS puntos_compra
     FROM
-      canje) AS operaciones
+        canje) AS operaciones
     INNER JOIN usuario u ON operaciones.id_usuario_fk = u.id_usuario
     INNER JOIN tienda t ON operaciones.id_tienda_fk = t.id_tienda
     LEFT JOIN registro_compra rc ON rc.id_registro_compra = operaciones.id_registro_compra
     LEFT JOIN canje c ON c.id_canjes = operaciones.id_canje
     LEFT JOIN recompensa r ON r.id_recompensa = operaciones.id_recompensa_fk
-  WHERE
+WHERE
     u.id_usuario = ${id}
-  ORDER BY
-    fecha_operacion DESC`;
+ORDER BY
+    fecha_operacion DESC;`;
  
     conexion.query(query, (error, results) => {
        

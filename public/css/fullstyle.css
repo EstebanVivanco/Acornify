@@ -10826,6 +10826,13 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
+.text-gradient-purple {
+  background: -webkit-linear-gradient(#fc67, #9f1ae2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 aside,
 section {
   padding-top: 5rem;

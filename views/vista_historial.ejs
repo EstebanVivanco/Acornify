@@ -36,26 +36,24 @@
         </div>
     </div>
   </nav>
-    <header class="colorfondo py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Registro</h1>
-                <h1 class="display-4 fw-bolder">De Canjes: </h1>
-
-                <% if(resultsT){  %> 
-                  <h1 class="display-4 fw-bolder"><%= resultsT[0].puntos %> </h1>
-                <%  } %>
-
-            </div>
-        </div>
-    </header>
-    
-    <nabin-bombin></nabin-bombin>
-
-    <i class="bi bi-search"></i>
-    <i class="bi bi-search"></i>
-    <i class="bi bi-search"></i>
-
+                <!-- Mashead header-->
+                <header class="masthead">
+                  <div class="container px-5">
+                      <div class="row gx-5 align-items-center">
+                          <div class="col-lg-12">
+                              <!-- Mashead text and app badges-->
+                              <div class="mb-5 mb-lg-0 text-center text-lg-center">
+                                  <h1 class="display-1 lh-1 mb-3 text-gradient">¡<%= user.nombre_usuario %>!</h1>
+                                  <% if(resultsT){  %> 
+                                    <h1 class="display-1 lh-1 mb-3 text-gradient">Tienes <span class="text-gradient-purple"><%= resultsT[0].puntos %></span>  puntos</h1>
+                                  <%  } %>
+                                  <p class="lead fw-normal text-muted mb-5">Este es tu historial de canjeos y compras, podras ver la tienda y cuando se ha generado el canjeo.</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </header>
+  
     <!--
     <div class="card mb-4">
         <div class="card-body">
@@ -68,35 +66,58 @@
     -->
 
 
+
     <div class="container-fluid">
         <div class="row">
-        <% results.forEach((results) => { %>
+        <% 
+        let maldicion = 1;
+        results.forEach((results) => {
+          
+          maldicion = maldicion + 1; 
+          %>
+        
           <div class="col-sm-6">
             <div class="card mt-3">
               <div class="row g-0 d-flex">
-                <div class="col-8">
+                <div class="col-12">
+                  <a class="text-black" style="text-decoration: none;" data-toggle="collapse" href="#collapse-<%=maldicion%>" onclick="toggleIcon(<%=maldicion%>);">
+                    <div class="card-body">
+                      <p class="card-text fs-4"><%= results.nombre_tienda %> <%= results.fecha_formateada %></p>
+                      <% if(results.tipo_operacion == 'Canje'){ %>
+                        <p class="card-text fs-5">Estado: <%= results.estado_canje ===0 ? 'Pendiente' : 'Reclamado' %></p>
 
-                  <div class="card-body">
-                    <p class="card-text fs-3"><%= results.fecha_operacion %></p>
-                    <h5 class="card-title"><%= results.nombre_tienda %></h5>
-                    <p class="card-text"><%= results.fecharda %></p>
-                    <% if(results.tipo_operacion == 'Canje'){ %>
-                      <p class="card-text">Estado: <%= results.estado_canje ===0 ? 'Pendiente' : 'Completada' %></p>
-                    <% }  %>
-                    
-                    <hr>
-                    <p class="card-text fs-3"><small class="text-muted"><%= results.nombre_producto %> | <%= results.puntos %> </small></p>
-                  </div>
+                        <p class="card-text text-start fs-3 d-flex justify-content-between">
+                          <small class="text-muted"><%= results.nombre_producto %> | <span style="color: red;">-<%= results.puntos %> puntos</span></small>
+                          <i id="toggle-icon-<%=maldicion%>" class="fa-solid fa-chevron-down"></i>
+                        </p>
+                      
 
+                      
+                      
+                      <% }  else { %>
+                        <p class="card-text fs-5">Estado: Recibido</p>
+                        <p class="card-text text-start fs-3 d-flex justify-content-between">
+                          <small class="text-muted">Puntos recibidos | <span style="color: green;">+<%= results.puntos_compra %> puntos</span> </small>
+                          <i id="toggle-icon-<%=maldicion%>" class="fa-solid fa-chevron-down"></i>
+                        </p>
+                      <% } %>
+                      
+                      
+                    </div>
+                  </a>
                 </div>
-                <div class="col-4 text-end">
-                    <img class="img-fluid h-100" src="/uploads/<%= results.imagen %>" alt="..." width="200">
+              </div>
+              <div class="collapse" id="collapse-<%=maldicion%>">
+                <div class="card-body text-black">
+                  <hr>
+                  <p class="card-text fs-6">Día: <%= results.fecha_formateada%></p>
+                  <p class="card-text fs-6">Hora: <%= results.hora_formateada%></p>
+                  <p class="card-text fs-6">Tienda ubicada en: <%= results.ubicacion_tienda %></p>
                 </div>
-
-            
               </div>
             </div>
           </div>
+        
           <% }) %>
         </div>
     </div>
@@ -107,6 +128,18 @@
     <footer class="py-5 bg-dark">
         <div class="container"><p class="m-0 text-center text-white">Copyright © Your Website 2023</p></div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function toggleIcon(maldicion) {
+        var icon = $('#toggle-icon-' + maldicion);
+        icon.toggleClass('fa-chevron-down fa-chevron-up');
+      }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
 
     <script src="https://kit.fontawesome.com/ca048bf1d7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
