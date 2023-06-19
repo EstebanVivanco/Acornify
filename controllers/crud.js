@@ -235,25 +235,34 @@ exports.loginTienda = (req, res)=>{
 
 exports.canjeoDePuntos = (req, res)=>{
 
-    const id = req.body.id;
-    const id_tarjeta_fk = req.body.id_tarjeta_fk;
-    const puntos_f = req.body.puntos_f;
-    const idrecompensa = req.body.idrecompensa;
+    const id_usuario = req.body.id_usuario;
+    const id = req.body.id; //id_tienda
+    const id_tarjeta_fk = req.body.id_tarjeta_fk; //id_tarjeta
+    const puntos_f = req.body.puntos_f; //puntos
+    const idrecompensa = req.body.idrecompensa; //id_recompensa
+
+    // console.log('id_usuario :>> ', id_usuario);
+    // console.log('id tienda:>> ', id);
+    // console.log('id_tarjeta_fk :>> ', id_tarjeta_fk);
+    // console.log('puntos_f :>> ', puntos_f);
+    // console.log('id_recompensa :>> ', idrecompensa);
+
     var fechaActual = new Date();
 
-    console.log('iderecompensa :>> ', idrecompensa);
         conexion.query('UPDATE tarjeta SET ? WHERE id_tarjeta = ?', [{puntos:puntos_f}, id_tarjeta_fk], (error, results)=>{
 
             if(error){
                 throw error;
             }else{
 
-                conexion.query('INSERT INTO canje SET ?', {id_usuario_fk: req.session.user.id_usuario, id_recompensa_fk: idrecompensa, id_tienda_fk: id, estado: 0, fecha_canje: fechaActual}, (error, results)=>{
+                conexion.query('INSERT INTO canje SET ?', {id_usuario_fk:id_usuario, id_recompensa_fk: idrecompensa, id_tienda_fk: id, estado: 0, fecha_canje: fechaActual}, (error, results)=>{
                    
                     if(error){
                         throw error;
                     }else{
-                        res.render('intermediaria_canjeo', {user: req.session.user});
+
+                       res.redirect('vista_historial/'+id_usuario)
+
                     }
 
                 })

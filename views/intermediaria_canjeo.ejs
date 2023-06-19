@@ -4,18 +4,113 @@
   <title>Vista de Producto Canjeado</title>
   <!-- Agrega los enlaces a los estilos de Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 </head>
+
 <body>
   <div class="container text-center mt-5">
-    <h1>¡Producto Canjeado!</h1>
-    <iframe src="https://giphy.com/embed/ND4ntvGe47jmpk86fS" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <p class="mt-4">¡Felicidades! Has canjeado un producto.</p>
-    <%if(user){%>
-        
-        <a href="vista_historial/<%= user.id_usuario %>" class="btn btn-primary">Revisarlo aquí</a>
-    <%}%>
+    <h1 style="margin-top: 20%;">Acerque la tarjeta para confirmar</h1>
+    <img src="/scan.png" alt=""  class="animate__animated animate__pulse animate__infinite mt-5" width="20%" height="20%" id="image">
+    <h4 class="mt-4" id="mensaje">Una vez validado, se descontarán sus puntos</h4>
+
+    <form id="myForm" action="/canjeoDePuntos" method="post">
+    <input type="text" id="uidtarjeta" hidden>
+
+
+    <h1 hidden>tienda</h1>
+    <input type="text" placeholder="tienda" id="id" name="id" hidden>
+
+    <H1 hidden>ID RECOMPENSA</H1>
+    <input type="text" id="idrecompensa" placeholder="recompensa" name="idrecompensa" hidden>
+
+
+    <h1 hidden>PUNTOS FINAL</h1>
+    <input type="text" id="puntos_f" placeholder="puntos" name="puntos_f" hidden><br>
+    
+
+    
+    <% if(tag){ %>
+      <h1 hidden>TAG</h1>
+      <input type="text" value="<%= tag[0].rfidtag %>" id="tagquery" hidden >
+
+      <h1 hidden>ID TARJETA</h1>
+      <input type="text" value="<%= tag[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" hidden>
+    <% } %>
+
   </div>
 
+  <h1 hidden>USUARIO ID</h1>
+  
+  <!-- SACAR EL HIDDEN AL BOTÓN EN CASO DE NO TENER TARJETA RFID -->
+  <input type="text" id="id_usuario" name="id_usuario" hidden>
+  <button type="submit" class="btn btn-warning" hidden > GATILLO MIAU </button>
+
+</form>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script async>
+
+      const pathnameSegments = window.location.pathname.split('/');
+
+      const usuario = pathnameSegments[2];
+      const puntos = pathnameSegments[3];
+      const tienda = pathnameSegments[4];
+      const recompensa = pathnameSegments[5]; 
+
+      console.log('usuario,puntos,tienda,recompensa :>> ', usuario,puntos,tienda,recompensa);
+
+      const caja = document.getElementById("uidtarjeta");
+      const query = document.getElementById("tagquery"); 
+
+
+      const form = document.getElementById('myForm');
+
+      //INPUT URL
+      const usuarioinput = document.getElementById("id_usuario"); 
+      const recompensainput = document.getElementById("idrecompensa"); 
+      const tiendainput = document.getElementById("id"); 
+      const puntosinput = document.getElementById("puntos_f"); 
+
+      recompensainput.value = recompensa;
+      tiendainput.value = tienda;
+      puntosinput.value = puntos;
+      usuarioinput.value = usuario;
+
+      
+      const socket = io();
+      socket.on('arduino:data', function(data){
+
+      caja.value = data.value;
+      const tagquery = query.value;
+      
+      if (tagquery === caja.value) {
+
+        Swal.fire({
+          title: 'Canje Aprobado',
+          text: 'Revise su canje aquí',
+          icon: 'success',
+        }).then((result) => {
+          if (result.isConfirmed) {
+              event.preventDefault();
+            form.submit();
+
+          }
+        });
+
+      }else{
+        Swal.fire('Canje Rechazado', 'La tarjeta no coincide con la asociada a esta cuenta', 'warning');
+      }
+
+
+    });
+  </script>
+  
   <!-- Agrega los scripts de Bootstrap al final del archivo -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

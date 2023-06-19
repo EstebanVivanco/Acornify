@@ -39,13 +39,11 @@ router.get('/vista_recompensas/:id',(req, res) =>{
         if(error){
             throw error;
         }else{
-            console.log('req.session.userASDASDASDASD :>> ', req.session.user.id_tarjeta_fk);
 
             conexion.query('SELECT * FROM tarjeta WHERE id_tarjeta = ?', [req.session.user.id_tarjeta_fk], (error, resultsT) => {
 
                 conexion.query('SELECT COUNT(*) AS asistido FROM registro_compra WHERE id_usuario_fk = ? AND id_tienda_fk = ?;', [id_user , id], (error, asistencia)=>{
 
-                    console.log("asistencia:   -- >>> ", asistencia[0].asistido);
 
                     res.render('vista_recompensas', {results: results, user : req.session.user, resultsT:resultsT , asistencia: asistencia} )
                 })
@@ -142,8 +140,28 @@ router.get('/vista_eliminar_recompensa',(req, res) =>{
     res.render('vista_eliminar_recompensa', {user : req.session.user})
 })
 
-router.get('/intermediaria_canjeo',(req, res) =>{
-    res.render('intermediaria_canjeo', {user: req.session.user} )
+router.post('/intermediaria_canjeo/:id_usuario/:puntos/:id_tienda/:id_recompensa',(req, res) =>{
+
+
+    const id_usuario = req.params.id_usuario;
+    const puntos = req.params.puntos;
+    const id_tienda = req.params.id_tienda;
+    const id_recompensa = req.params.id_recompensa;
+
+    // console.log('id_usuario :>> ', id_usuario);
+    // console.log('id_recompensa :>> ', id_recompensa);
+    // console.log('tienda :>> ', id_tienda);
+    conexion.query('SELECT * FROM tarjeta INNER JOIN usuario ON tarjeta.id_tarjeta = usuario.id_tarjeta_fk WHERE usuario.id_usuario = ? ',[id_usuario], (error, tag) => {
+       
+        if(error){
+            throw error;
+    
+        }else{
+            res.render('intermediaria_canjeo', {tag: tag, user: req.session.user})
+        }
+
+    }) 
+
 })
 
 router.get('/vista_intermediaria_aceptar_canje',  (req, res)=>{
