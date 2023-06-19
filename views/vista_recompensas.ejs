@@ -59,10 +59,7 @@
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <% results.forEach((recompensas) => { %>
                 <div class="col mb-5">
-                    <form action="/canjeoDePuntos" method="POST">
-                        <input type="text" value="<%= recompensas.id_tienda %>" id="id" name="id" hidden> <!-- Obtener id de la tienda-->
-                        <input type="text" value="<%= recompensas.id_recompensa %>" id="idrecompensa" name="idrecompensa" hidden > <!-- Obtener id de la recompensa-->
-                        <% if(resultsT){ %>
+                    <% if(resultsT){ %>
                         <input type="text" value="<%= resultsT[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" hidden> <!-- Obtener id de la tarjeta que se modificara-->
                         <div class="card h-100">
                             <!-- Imagen de tienda -->
@@ -75,12 +72,12 @@
                                     <!-- Product price--> 
 
                                     <!-- puntos meta menos los puntos en la cuenta (no puede ser menor a 0)x-->
-
+                                    
                                     
                                     <%  let p_faltantes = recompensas.meta_canje - resultsT[0].puntos;
                                     
-                                        let mensaje = "Faltan " + p_faltantes + " puntos";
-
+                                    let mensaje = "Faltan " + p_faltantes + " puntos";
+                                    
                                         if (p_faltantes <= 0){
                                             p_faltantes = 0;
 
@@ -89,17 +86,18 @@
 
                                         let p_finales = resultsT[0].puntos - recompensas.meta_canje;
                                         let puntos = resultsT[0].puntos;
-                                    %>
-                                    <span><%= mensaje %></span>
-                                    <!-- la variable de mensaje es la que establece el texto que se muestra en el span de la tarjeta -->
-                                    <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f" hidden>
+                                        %>
+                                        <span><%= mensaje %></span>
+                                        <!-- la variable de mensaje es la que establece el texto que se muestra en el span de la tarjeta -->
+                                        <input type="text" value="<%= p_finales %>" id="puntos_f" name="puntos_f" hidden>
+                                    </div>
                                 </div>
-                            </div>
-
-
-                            <!-- Product actions-->
-                            
-
+                                
+                                
+                                <!-- Product actions-->
+                                
+                                
+                            <form action="/intermediaria_canjeo/<%= user.id_usuario%>/<%= p_finales %>/<%= recompensas.id_tienda %>/<%= recompensas.id_recompensa%>" method="POST">
 
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <% if(asistencia[0].asistido < 3){ %>
