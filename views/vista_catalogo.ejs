@@ -42,6 +42,13 @@
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center">
                         <div class="col-lg-6">
+                            <!-- Masthead device mockup feature-->
+                            <div class="masthead-device-mockup">
+                                <img class="img-fluid" src="assets/img/circulin.svg" width="100%" alt="">
+                                <img class="img-fluid marginal" src="assets/img/squirril.png" width="90%">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
                             <!-- Mashead text and app badges-->
                             <div class="mb-5 mb-lg-0 text-center text-lg-start">
                                 <h1 class="display-1 lh-1 mb-3 text-gradient">¡Bienvenido <%= user.nombre_usuario %>!</h1>
@@ -49,13 +56,7 @@
                                 <p class="lead fw-normal text-muted mb-5">Recuerda que al comprar un articulo añadiras solo un punto para canjear productos.</p>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <!-- Masthead device mockup feature-->
-                            <div class="masthead-device-mockup">
-                                <img class="img-fluid" src="assets/img/circulin.svg" width="100%" alt="">
-                                <img class="img-fluid marginal" src="assets/img/ardillin.png" width="90%">
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </header>
@@ -69,20 +70,21 @@
                             <div class="h2 fs-1 text-white mb-4">"La mejor forma de ganar, sin pagar de más"</div>
                             <img src="assets/img/bellota.png" alt="logo de bellota" style="height: 5rem" />
                         </div>
-                        <div class="col-xl-12">
+                        <!-- <div class="col-xl-12">
                             <form class="d-flex mt-4">
                                 <input class="form-control p-3 rounded-start" type="text" placeholder="Buscar tiendas" aria-describedby="button-search" width="20px">
                                 <button class="btn btn-warning px-4 rounded-end " type="button"><i class="bi bi-search"></i></button>
                             </form>
-                        </div>  
+                        </div>   -->
                     </div>
                 </div>
             </aside>
     <h1><%= uid %></h1> 
             <section class="py-5">
-                <% results.forEach((tienda) => { %>
+               
 
                     <div class="row justify-content-center">
+                        <% results.forEach((tienda) => { %>
                         <div class="col-sm-8 col-lg-3 col-xl-3   pt-2 px-4 pb-2">
                             <a style="text-decoration: none; color: black;" href="vista_recompensas/<%= tienda.id_tienda%>">
                             <div class="card h-100">
@@ -97,18 +99,29 @@
                                         <p class=" lead card-text fs-5"> <%= tienda.ubicacion_tienda %> </p>
                                     </div>
                                 </div>
+                            </div>
                             </a>
                         </div>
+                        <% }) %>
                     </div>
-                <% }) %>
+                
         
                 
 
                 
     </section>
 
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright © Your Website 2023</p></div>
+    <footer class="bg-black text-center py-5">
+        <div class="container px-5">
+            <div class="text-white-50 small">
+                <div class="mb-2">&copy; Acornify 2023.</div>
+                <a href="#!">Pricacidad</a>
+                <span class="mx-1">&middot;</span>
+                <a href="#!">Politicas y condiciones</a>
+                <span class="mx-1">&middot;</span>
+                <a href="#!">FAQ</a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://kit.fontawesome.com/ca048bf1d7.js" crossorigin="anonymous"></script>

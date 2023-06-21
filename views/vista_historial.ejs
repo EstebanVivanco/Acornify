@@ -40,19 +40,28 @@
                 <header class="masthead">
                   <div class="container px-5">
                       <div class="row gx-5 align-items-center">
-                          <div class="col-lg-12">
+
+                        <div class="col-lg-6">
+                          <!-- Masthead device mockup feature-->
+                          <div class="masthead-device-mockup">
+                              <img class="img-fluid" src="/assets/img/circulin.svg" width="100%" alt="">
+                              <img class="img-fluid marginal" src="/assets/img/squirril.png" width="90%">
+                          </div>
+                      </div>
+                          <div class="col-lg-6">
                               <!-- Mashead text and app badges-->
-                              <div class="mb-5 mb-lg-0 text-center text-lg-center">
+                              <div class="mb-5 mb-lg-0 text-center text-lg-start">
                                   <h1 class="display-1 lh-1 mb-3 text-gradient">¡<%= user.nombre_usuario %>!</h1>
                                   <% if(resultsT){  %> 
-                                    <h1 class="display-1 lh-1 mb-3 text-gradient">Tienes <span class="text-gradient-purple"><%= resultsT[0].puntos %></span>  puntos</h1>
+                                    <h1 class="display-3 lh-1 mb-3 text-gradient">Tienes <span class="text-gradient-purple"><%= resultsT[0].puntos %></span>  puntos</h1>
                                   <%  } %>
-                                  <p class="lead fw-normal text-muted mb-5">Este es tu historial de canjeos y compras, podras ver la tienda y cuando se ha generado el canjeo.</p>
+                                  <p class="lead fw-normal mb-5">Este es tu historial de canjeos y compras, podras ver la tienda y cuando se ha generado el canjeo.</p>
                               </div>
                           </div>
                       </div>
                   </div>
               </header>
+
   
     <!--
     <div class="card mb-4">
@@ -76,7 +85,7 @@
           maldicion = maldicion + 1; 
           %>
         
-          <div class="col-sm-6">
+          <div class="col-sm-12 col-lg-4 col-xl-4">
             <div class="card mt-3">
               <div class="row g-0 d-flex">
                 <div class="col-12">
@@ -125,9 +134,19 @@
 
         
 
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright © Your Website 2023</p></div>
-    </footer>
+    <footer class="bg-black text-center py-5">
+      <div class="container px-5">
+          <div class="text-white-50 small">
+              <div class="mb-2">&copy; Acornify 2023.</div>
+              <a href="#!">Pricacidad</a>
+              <span class="mx-1">&middot;</span>
+              <a href="#!">Politicas y condiciones</a>
+              <span class="mx-1">&middot;</span>
+              <a href="#!">FAQ</a>
+          </div>
+      </div>
+  </footer>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

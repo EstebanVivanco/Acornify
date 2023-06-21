@@ -10827,7 +10827,7 @@ html {
 }
 
 .text-gradient-purple {
-  background: -webkit-linear-gradient(#fc67, #9f1ae2);
+  background: -webkit-linear-gradient(#fccc04, #dc3545);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
