@@ -55,6 +55,7 @@
                             <div class="mb-5 mb-lg-0 text-center text-lg-start">
                                 
                                 <% 
+
                                 let asistencias = asistencia[0].asistido;
                                 if(asistencias < 3){ 
                 
@@ -86,6 +87,26 @@
                     </div>
                 </div>
             </header>
+
+            <% if(results){%>
+            <!-- Quote/testimonial aside-->
+            <aside class="text-center bg-gradient-primary-to-secondary">
+                <div class="container px-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-xl-8">
+                            <div class="h2 fs-1 text-white mb-4">¡Bienvenido a <%= results[0].nombre_tienda%>!</div>
+                            <img src="/assets/img/bellota.png" alt="logo de bellota" style="height: 5rem" />
+                        </div>
+                        <!-- <div class="col-xl-12">
+                            <form class="d-flex mt-4">
+                                <input class="form-control p-3 rounded-start" type="text" placeholder="Buscar tiendas" aria-describedby="button-search" width="20px">
+                                <button class="btn btn-warning px-4 rounded-end " type="button"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div>   -->
+                    </div>
+                </div>
+            </aside>
+            <%}%>
         
 
     
