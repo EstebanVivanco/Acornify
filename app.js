@@ -54,7 +54,7 @@ const io = require('socket.io')(server);
 
 
 const puerto = new SerialPort({
-   path: 'COM5',
+   path: 'COM3',
    baudRate: 115200
 });
 
