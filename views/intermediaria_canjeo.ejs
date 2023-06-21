@@ -17,7 +17,7 @@
     <h4 class="mt-4" id="mensaje">Una vez validado, se descontarán sus puntos</h4>
 
     <form id="myForm" action="/canjeoDePuntos" method="post">
-    <input type="text" id="uidtarjeta" hidden>
+    <input type="text" id="uidtarjeta" >
 
 
     <h1 hidden>tienda</h1>
@@ -34,10 +34,10 @@
     
     <% if(tag){ %>
       <h1 hidden>TAG</h1>
-      <input type="text" value="<%= tag[0].rfidtag %>" id="tagquery" hidden >
+      <input type="text" value="<%= tag[0].rfidtag %>" id="tagquery"  >
 
       <h1 hidden>ID TARJETA</h1>
-      <input type="text" value="<%= tag[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" hidden>
+      <input type="text" value="<%= tag[0].id_tarjeta %>" id="id_tarjeta_fk" name="id_tarjeta_fk" >
     <% } %>
 
   </div>
@@ -89,7 +89,7 @@
       caja.value = data.value;
       const tagquery = query.value;
       
-      if (tagquery === caja.value) {
+      if (' '+tagquery == caja.value) {
 
         Swal.fire({
           title: 'Canje Aprobado',
