@@ -29,7 +29,7 @@
           </div>
           <div>
             <h5>Correo electrónico</h5>
-            <input class="input" type="email" name="email" />
+            <input class="input" type="email" name="email" required/>
           </div>
         </div>
         <div class="input-div two">
@@ -38,16 +38,16 @@
           </div>
           <div>
             <h5>Contraseña</h5>
-            <input class="input" type="password" name="password"/>
+            <input class="input" type="password" name="password" required/>
           </div>
         </div>
         <button type="submit" class="btn">
           Ingresar
         </button>
-          <div>¿No tienes una cuenta?</div>
-          <a href="/registro" class="text-decoration-none text-warning fw-semibold">Registrar</a>
-          <div>¿Eres dueño de una tienda?</div>
-          <a href="/logintienda" class="text-decoration-none text-warning fw-semibold"> Iniciar Sesión</a>
+          <div>¿No tienes una cuenta? <a href="/registro" class="text-decoration-none text-warning fw-semibold">Registrar</a></div>
+          
+          <div>¿Eres dueño de una tienda? <a href="/logintienda" class="text-decoration-none text-warning fw-semibold"> Iniciar Sesión</a></div>
+          
       </form>
     </div>
   </div>

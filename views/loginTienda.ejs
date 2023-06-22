@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Inicio de sesión</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/ca048bf1d7.js" crossorigin="anonymous"></script>
+  <title>Inicio de sesión</title>
 </head>
+
 <body>
-
-    <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: hsl(0, 0%, 90%)">
-
-        <form action="loginTienda" method="post">
-        <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
-            
-            <div class="d-flex justify-content-center">
-              <img src="bellota.png" alt="login-icon" style="height: 7rem" />
-            </div>
-            <h1 class="text-center fs-1 fw-bold">Bienvenida tienda</h1>
-            <div class="input-group mt-4">
-              <div class="input-group-text bg-warning">
-                <img src="gmail.png" alt="username-icon" style="height: 1rem" />
-              </div>
-              <input class="form-control bg-light" type="email" name="email" placeholder="Correo electrónico" />
-            </div>
-            <div class="input-group mt-1">
-              <div class="input-group-text bg-warning">
-                <img src="candado.png" alt="password-icon" style="height: 1rem" />
-              </div>
-              <input class="form-control bg-light" type="password" name="password"  placeholder="Contraseña" />
-            </div>
-
-            <button type="submit" class="btn btn-warning text-black w-100 mt-4 fw-semibold shadow-sm">
-              Ingresar
-            </button>
-            <div class="d-flex gap-1 justify-content-center mt-1">
-              <div>¿No tienes una cuenta?</div>
-              <a href="/registroT" class="text-decoration-none text-warning fw-semibold">Registrar</a>
-            </div>
-            
-    
-          </div>
-        </form>
-
+  <img class="wave" src="wave.svg" height="100%">
+  <div class="container">
+    <div class="img">
+      <img src="assets/img/squirril.png">
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <% if(typeof alert !="undefined" ){ %>
-        <script>
-            Swal.fire({
-                title: '<%= alertTitle%>',
-                text: '<%= alertMessage%>',
-                icon: '<%= alertIcon%>',
-                showConfirmButton: <%= showConfirmButton%> ,
-                timer: <%= timer %>
+    <div class="login-container">
+      <form action="loginTienda" method="post">
+        <img class="avatar" src="bellota.png" alt="login-icon"/>
+        <h2>Bienvenida Tienda</h2>
+        <div class="input-div one">
+          <div class="i">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div>
+            <h5>Correo electrónico</h5>
+            <input class="input" type="email" name="email" required/>
+          </div>
+        </div>
+        <div class="input-div two">
+          <div class="i">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div>
+            <h5>Contraseña</h5>
+            <input class="input" type="password" name="password" required/>
+          </div>
+        </div>
+        <button type="submit" class="btn">
+          Ingresar
+        </button>
+          <div>¿No tienes una cuenta? <a href="/registroT" class="text-decoration-none text-warning fw-semibold">Registrar</a></div>      
+      </form>
+    </div>
+  </div>
+  
+  <script type="text/javascript" src="uwu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <% if(typeof alert !="undefined" ){ %>
+    <script>
+      Swal.fire({
+        title: '<%= alertTitle%>',
+        text: '<%= alertMessage%>',
+        icon: '<%= alertIcon%>',
+        showConfirmButton: <%= showConfirmButton%> ,
+        timer: <%= timer %>
             }).then(() => {
-                    window.location = '/<%= ruta%>'
-                })
-        </script>
-        <% } %>
-        <script>
-                // Example starter JavaScript for disabling form submissions if there are invalid fields
-                (() => {
-                    'use strict'
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    const forms = document.querySelectorAll('.needs-validation')
-                    // Loop over them and prevent submission
-                    Array.from(forms).forEach(form => {
-                        form.addEventListener('submit', event => {
-                            if (!form.checkValidity()) {
-                                event.preventDefault()
-                                event.stopPropagation()
-                            }
-                            form.classList.add('was-validated')
-                        }, false)
-                    })
-                })()
-        </script>
+          window.location = '/<%= ruta%>'
+        })
+    </script>
+    <% } %>
+      <script>
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          (() => {
+            'use strict'
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+              form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+              }, false)
+            })
+          })()
+      </script>
 </body>
+
 </html>

@@ -53,28 +53,28 @@ const server = app.listen(5000, ()=>{
 const io = require('socket.io')(server);
 
 
-// const puerto = new SerialPort({
-//    path: 'COM3',
-//    baudRate: 115200
-// });
+const puerto = new SerialPort({
+   path: 'COM3',
+   baudRate: 115200
+});
 
-// const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
+const parser = puerto.pipe(new DelimiterParser({delimiter: '\n'}))
 
-// parser.on('open', function(){
-//    console.log('con open');
-// })
+parser.on('open', function(){
+   console.log('con open');
+})
 
-// parser.on('data', function(data){
+parser.on('data', function(data){
     
-//     var enc = new TextDecoder();
-//     var arr = new Uint8Array(data);
-//     ready = enc.decode(arr);
-//     io.emit("arduino:data",{
-//         value: ready
-//     });
-//     console.log('ready :>> ', ready);
+    var enc = new TextDecoder();
+    var arr = new Uint8Array(data);
+    ready = enc.decode(arr);
+    io.emit("arduino:data",{
+        value: ready
+    });
+    console.log('ready :>> ', ready);
 
-// })
+})
 
 // Evento que se ejecuta cuando un cliente se conecta al servidor
 io.on('connection', (socket) => {
