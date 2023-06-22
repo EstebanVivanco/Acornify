@@ -207,7 +207,7 @@ exports.loginTienda = (req, res)=>{
                         alert:true,
                         alertTitle: 'Conexion exitosa',
                         alertMessage: '¡Bienvenido! ',
-                        alertIcon:'succes',
+                        alertIcon:'success',
                         showConfirmButton: false,
                         timer: 1500,
                         ruta: 'caja',
